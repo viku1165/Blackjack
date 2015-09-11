@@ -8,6 +8,7 @@ public class Pakka {
     Stack<Kortti> pakka;
     
     public Pakka() {
+        pakka = new Stack<Kortti>();
         for (int i = 1; i < 14; i++) {
             for (int j = 1; j < 5; j++) {
                 pakka.push(new Kortti(j,i));
@@ -16,13 +17,19 @@ public class Pakka {
         this.sekoita();
     }
     
-    public Kortti nosta() {
+    public Kortti nosta() {        
         Kortti nosto = pakka.pop();
         return nosto;
     }
     
     public void sekoita() {
         Collections.shuffle(pakka);
+    }
+    
+    
+    // Testaamisen helpottamiseksi
+    public Stack getStack() {
+        return pakka;
     }
     
 }
