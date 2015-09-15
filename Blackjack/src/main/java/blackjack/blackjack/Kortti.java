@@ -24,6 +24,16 @@ public class Kortti {
         return arvo;
     }
     
+    public int bjArvo() {
+        if(arvo > 10) {
+            return 10;
+        }
+        if(arvo == 1) {
+            return 11;
+        }
+        return arvo;
+    }
+    
     public Maa getMaa() {
     return maa;
     }

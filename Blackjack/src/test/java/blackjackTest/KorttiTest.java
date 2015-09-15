@@ -27,4 +27,17 @@ public class KorttiTest {
         assertEquals("RISTI 13", card.toString());
     }
     
+    @Test
+    public void kuvanArvo10() {
+        Kortti card = new Kortti(2,11);
+        int arvo = card.bjArvo();
+        assertEquals(10, arvo);
+    }
+    
+    @Test 
+    public void assanArvo11() {
+        Kortti card = new Kortti(2,1);
+        int arvo = card.bjArvo();
+        assertEquals(11, arvo);
+    }
 }

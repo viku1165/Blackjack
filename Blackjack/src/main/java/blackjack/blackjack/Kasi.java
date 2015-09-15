@@ -24,18 +24,36 @@ public class Kasi {
     
     public int openValue() {
         int sum = 0;
+        int assia = 0;
         for (Kortti card : open) {
-            sum += card.getArvo();
+            sum += card.bjArvo();
+            if(card.getArvo() == 1) {
+                assia += 1;
+            }
         }
+        sum = FixAces(sum, assia);
         return sum;
     }
     
     public int blindValue() {
-        int ov = openValue();
+        int sum = openValue();
         if (blind == null) {
-            return ov;
+            return sum;
         }
-        return ov + blind.getArvo();
+        sum += blind.bjArvo();
+        if(blind.getArvo() == 1) {
+            sum = FixAces(sum, 1);
+        }
+        return sum;
+    }
+    
+    
+    // Jos käden arvo menee yli 21:n, vaihdetaan ässän arvoksi 11 sijasta 1
+    public int FixAces(int arvo, int aces) {
+        while(arvo > 21 && aces > 0) {
+            arvo -= 10;
+        }
+        return arvo;
     }
     
     public Kortti getBlind() {
