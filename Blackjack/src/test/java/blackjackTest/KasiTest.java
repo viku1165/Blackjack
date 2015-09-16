@@ -2,6 +2,7 @@
 
 package blackjackTest;
 
+import blackjack.blackjack.Pakka;
 import java.util.ArrayList;
 import blackjack.blackjack.Kortti;
 import blackjack.blackjack.Kasi;
@@ -40,6 +41,14 @@ public class KasiTest {
     }
     
     @Test
+    public void piilokortinJakoPakastaToimii() {
+        Pakka deck = new Pakka();
+        kasi.dealBlind(deck.nosta());
+        assertNotNull(kasi.getBlind());
+    }
+    
+    
+    @Test
     public void avokorttienJakoToimii() {
         Kortti aceOfSpades = new Kortti(3,1);
         Kortti muu = new Kortti(3, 8);
@@ -47,6 +56,14 @@ public class KasiTest {
         kasi.dealOpen(aceOfSpades);
         ArrayList kadessa = kasi.getOpen();
         assertEquals(2, kadessa.size());
+    }
+    
+    @Test
+    public void avokortinJakoPakastaToimii() {
+        Pakka deck = new Pakka();
+        kasi.dealOpen(deck.nosta());
+        ArrayList avokortit = kasi.getOpen();
+        assertEquals(1, avokortit.size());
     }
     
     @Test

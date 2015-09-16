@@ -22,6 +22,14 @@ public class Kasi {
         blind = card;
     }
     
+     public void dealOpen(Pakka deck) {
+        dealOpen(deck.nosta());
+    }
+    
+    public void dealBlind(Pakka deck) {
+        dealBlind(deck.nosta());
+    }
+    
     public int openValue() {
         int sum = 0;
         int assia = 0;
@@ -47,6 +55,12 @@ public class Kasi {
         return sum;
     }
     
+    public int getValue() {
+        if (blind == null) {
+            return blindValue();
+        }
+        return openValue();
+    }
     
     // Jos käden arvo menee yli 21:n, vaihdetaan ässän arvoksi 11 sijasta 1
     public int FixAces(int arvo, int aces) {
