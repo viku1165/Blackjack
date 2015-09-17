@@ -41,7 +41,7 @@ public class Kortti {
     @Override
     public String toString() {
         if (arvo == 1) {
-            return maa + " ässä";
+            return maa + " A";
         }
         return maa + " " + arvo;
     }

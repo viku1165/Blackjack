@@ -18,7 +18,7 @@ public class KorttiTest {
     @Test
     public void korttiLuodaanOikein() {
         Kortti card = new Kortti(4,1);
-        assertEquals("HERTTA ässä", card.toString());
+        assertEquals("HERTTA A", card.toString());
     }
     
     @Test

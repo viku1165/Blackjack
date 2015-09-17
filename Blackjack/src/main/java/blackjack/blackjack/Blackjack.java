@@ -8,6 +8,7 @@ public class Blackjack {
     private Kasi pelaaja;
     private double panos;
     private double voitot;
+    private boolean kasiKesken;
     
     public Blackjack() {
         deck = new Pakka();
@@ -15,9 +16,10 @@ public class Blackjack {
         pelaaja = new Kasi();
         voitot = 0;
         panos = 1;
+        kasiKesken = true;
     }
     
-    public void setPanos(int x) {
+    public void setPanos(double x) {
         panos = x;
     }
     
@@ -30,36 +32,65 @@ public class Blackjack {
     }
     
     public void alkujako() {
-        pelaaja.dealOpen(deck);
-        jakaja.dealOpen(deck);
-        pelaaja.dealOpen(deck);
-        jakaja.dealBlind(deck);
+        tyhjaaKadet();
+        pelaaja.deal(deck);
+        jakaja.deal(deck);
+        pelaaja.deal(deck);
+        jakaja.deal(deck);
     }
     
     public void hit() {
-        pelaaja.dealOpen(deck);
+        pelaaja.deal(deck);
         if(pelaaja.getValue() >= 21) {
-            resolve();
+            kasiKesken = false;
         }
     }
     
+    public void stay() {
+        kasiKesken = false;
+    }
     
-    public void resolve() {
+    
+    public String resolve() {
         while(jakaja.getValue() < 16) {
-            jakaja.dealOpen(deck);
+            jakaja.deal(deck);
         }
         
         if(pelaaja.getValue() > 21) {
             if (jakaja.getValue() > 21) {
-                // tasapeli
+                return "tasapeli";
             } else {
-                //jakajan voitto
+                voitot -= panos;
+                return "jakaja voittaa";
             }
         }
         if (jakaja.getValue() > 21) {
-           // pelaajan voitto
+            voitot += panos;
+            return "pelaaja voittaa";
         }
-        
+        if (jakaja.getValue() > pelaaja.getValue() ) {
+            voitot -= panos;
+            return "jakaja voittaa";
+        }
+        if (jakaja.getValue() > pelaaja.getValue() ) {
+            return "tasapeli";
+        }
+        voitot += panos;
+        return "pelaaja voittaa";
+    }
+    
+    public boolean kasiKesken() {
+        return kasiKesken;
+    }
+    
+    public void tyhjaaKadet() {
+        jakaja = new Kasi();
+        pelaaja = new Kasi();
+        kasiKesken = true;
+    }
+    
+    public double getVoitot() {
+        return voitot;
     }
     
 }
