@@ -32,4 +32,16 @@ public class Pakka {
         return pakka;
     }
     
+    public boolean tyhja() {
+        return pakka.empty();
+    }
+    
+    public void yhdista(Pakka toinen) {
+        while(!toinen.tyhja()) {
+            Kortti k = toinen.nosta();
+            pakka.push(k);
+        }
+        sekoita();
+    }
+    
 }

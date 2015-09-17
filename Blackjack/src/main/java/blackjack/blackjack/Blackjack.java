@@ -50,6 +50,11 @@ public class Blackjack {
         kasiKesken = false;
     }
     
+    public void tuplaa() {
+        panos = 2*panos;
+        pelaaja.deal(deck);
+        kasiKesken = false;
+    }
     
     public String resolve() {
         while(jakaja.getValue() < 16) {

@@ -98,4 +98,28 @@ public class PakkaTest {
         assertTrue(ok);
     }
     
+    @Test
+    public void tyhjaToimii1() {        
+        assertTrue(!deck.tyhja());
+    }
+    
+    @Test
+    public void tyhjaToimii2() {
+        for(int i = 0; i < 52; i++) {
+            deck.nosta();
+        }
+        assertTrue(deck.tyhja());
+    }
+    
+    @Test
+    public void yhdistaminenToimii() {
+        Pakka deck2 = new Pakka();
+        deck.yhdista(deck2);
+        int i = 0;
+        while(!deck.tyhja()) {
+            deck.nosta();
+            i++;
+        }
+        assertEquals(104, i);
+    }
 }

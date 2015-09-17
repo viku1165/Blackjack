@@ -51,12 +51,14 @@ public class Tekstikayttoliittyma {
     }
     
     public void kysy() {
-        System.out.println("Hit vai Stay");
+        System.out.println("Hit, Stay or Double down");
         String komento = scan.nextLine();
-        if (komento.equals("hit") || komento.equals("h") || komento.equals("H")) {
+        if (komento.equalsIgnoreCase("hit") || komento.equalsIgnoreCase("h")) {
             peli.hit();
-        } else if (komento.equals("stay") || komento.equals("s") || komento.equals("S")) {
+        } else if (komento.equalsIgnoreCase("stay") || komento.equalsIgnoreCase("s")) {
             peli.stay();
+        } else if (komento.equalsIgnoreCase("Double") || komento.equalsIgnoreCase("d")) {
+            peli.tuplaa();
         } else {
             System.out.println("Väärä komento");
             kysy();
