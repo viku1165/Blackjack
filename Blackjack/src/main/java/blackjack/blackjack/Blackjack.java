@@ -6,12 +6,18 @@ public class Blackjack {
     private Pakka deck;
     private Kasi jakaja;
     private Kasi pelaaja;
-    private double panos;
-    private double voitot;
+    private int panos;
+    private int voitot;
     private boolean kasiKesken;
+    private boolean ekaVuoro;
     
-    public Blackjack() {
+    public Blackjack(int pakkoja) {
         deck = new Pakka();
+        for (int i = 1; i < pakkoja; i++) {
+            Pakka uusi = new Pakka();
+            deck.yhdista(uusi);
+        }
+        
         jakaja = new Kasi();
         pelaaja = new Kasi();
         voitot = 0;
@@ -19,7 +25,7 @@ public class Blackjack {
         kasiKesken = true;
     }
     
-    public void setPanos(double x) {
+    public void setPanos(int x) {
         panos = x;
     }
     
@@ -44,9 +50,10 @@ public class Blackjack {
         if(pelaaja.getValue() >= 21) {
             kasiKesken = false;
         }
+        ekaVuoro = false;
     }
     
-    public void stay() {
+    public void stand() {
         kasiKesken = false;
     }
     
@@ -92,10 +99,14 @@ public class Blackjack {
         jakaja = new Kasi();
         pelaaja = new Kasi();
         kasiKesken = true;
+        ekaVuoro = true;
     }
     
-    public double getVoitot() {
+    public int getVoitot() {
         return voitot;
+    }
+    public boolean getEkaVuoro() {
+        return ekaVuoro;
     }
     
 }

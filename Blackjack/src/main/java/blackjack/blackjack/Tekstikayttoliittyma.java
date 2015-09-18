@@ -18,7 +18,7 @@ public class Tekstikayttoliittyma {
         while(true) {
             System.out.println("Voitot: " + peli.getVoitot());
             System.out.println("Aseta Panos");
-            double panos = Double.parseDouble(scan.nextLine());
+            int panos = Integer.parseInt(scan.nextLine());
             peli.setPanos(panos);
             peli.alkujako();            
             
@@ -44,20 +44,24 @@ public class Tekstikayttoliittyma {
         } else {
             System.out.println(peli.getJakajanKasi().toString());
         }       
-        System.out.println("summa " + peli.getJakajanKasi().getValue());
+//        System.out.println("summa " + peli.getJakajanKasi().getValue());
         System.out.println("Pelaaja:");
         System.out.println(peli.getPelaajanKasi());
-        System.out.println("summa " + peli.getPelaajanKasi().getValue());
+//        System.out.println("summa " + peli.getPelaajanKasi().getValue());
     }
     
     public void kysy() {
-        System.out.println("Hit, Stay or Double down");
+        if (peli.getEkaVuoro()){
+            System.out.println("Hit, Stand or Double down");
+        } else {
+            System.out.println("Hit or Stand");
+        }
         String komento = scan.nextLine();
         if (komento.equalsIgnoreCase("hit") || komento.equalsIgnoreCase("h")) {
             peli.hit();
-        } else if (komento.equalsIgnoreCase("stay") || komento.equalsIgnoreCase("s")) {
-            peli.stay();
-        } else if (komento.equalsIgnoreCase("Double") || komento.equalsIgnoreCase("d")) {
+        } else if (komento.equalsIgnoreCase("stand") || komento.equalsIgnoreCase("s")) {
+            peli.stand();
+        } else if ((komento.equalsIgnoreCase("Double") || komento.equalsIgnoreCase("d")) && peli.getEkaVuoro()) {
             peli.tuplaa();
         } else {
             System.out.println("Väärä komento");
