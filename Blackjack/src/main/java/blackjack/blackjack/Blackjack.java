@@ -39,14 +39,14 @@ public class Blackjack {
     
     public void alkujako() {
         tyhjaaKadet();
-        pelaaja.deal(deck);
-        jakaja.deal(deck);
-        pelaaja.deal(deck);
-        jakaja.deal(deck);
+        pelaaja.jaa(deck);
+        jakaja.jaa(deck);
+        pelaaja.jaa(deck);
+        jakaja.jaa(deck);
     }
     
     public void hit() {
-        pelaaja.deal(deck);
+        pelaaja.jaa(deck);
         if(pelaaja.getValue() >= 21) {
             kasiKesken = false;
         }
@@ -59,13 +59,13 @@ public class Blackjack {
     
     public void tuplaa() {
         panos = 2*panos;
-        pelaaja.deal(deck);
+        pelaaja.jaa(deck);
         kasiKesken = false;
     }
     
     public String resolve() {
         while(jakaja.getValue() < 16) {
-            jakaja.deal(deck);
+            jakaja.jaa(deck);
         }
         
         if(pelaaja.getValue() > 21) {
@@ -84,7 +84,7 @@ public class Blackjack {
             voitot -= panos;
             return "jakaja voittaa";
         }
-        if (jakaja.getValue() > pelaaja.getValue() ) {
+        if (jakaja.getValue() == pelaaja.getValue() ) {
             return "tasapeli";
         }
         voitot += panos;

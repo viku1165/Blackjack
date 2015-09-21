@@ -23,14 +23,14 @@ public class PakkaTest {
     }
     
     @Test
-    public void Pakassa52Korttia() {
+    public void pakassa52Korttia() {
         Stack pino = deck.getStack();
         int koko = pino.size();
         assertEquals(52, koko);
     }
     
     @Test
-    public void MaatLuodaanOikein() {
+    public void maatLuodaanOikein() {
         int ruutuja = 0;
         int risteja = 0;
         int patoja = 0;
@@ -56,7 +56,7 @@ public class PakkaTest {
     }
     
     @Test
-    public void ArvotLuodaanOikein() {
+    public void arvotLuodaanOikein() {
         int[] taul = new int[13];
         
         for (int i = 0; i < 52; i++) {

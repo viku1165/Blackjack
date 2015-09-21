@@ -12,12 +12,12 @@ public class Kasi {
         cards = new ArrayList<>();
     }
     
-    public void deal(Kortti card) {
+    public void jaa(Kortti card) {
         cards.add(card);
     }
     
     
-     public void deal(Pakka deck) {
+     public void jaa(Pakka deck) {
         cards.add(deck.nosta());
     }
     
@@ -31,13 +31,13 @@ public class Kasi {
                 assia += 1;
             }
         }
-        sum = FixAces(sum, assia);
+        sum = fixAces(sum, assia);
         return sum;
     }
     
     
     // Jos käden arvo menee yli 21:n, vaihdetaan ässän arvoksi 11 sijasta 1
-    public int FixAces(int arvo, int aces) {
+    public int fixAces(int arvo, int aces) {
         while(arvo > 21 && aces > 0) {
             arvo -= 10;
             aces -= 1;

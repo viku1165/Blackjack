@@ -35,14 +35,14 @@ public class KasiTest {
     @Test
     public void kortinJakoToimii() {
         Kortti aceOfSpades = new Kortti(3,1);
-        kasi.deal(aceOfSpades);
+        kasi.jaa(aceOfSpades);
         assertEquals("PATA A", kasi.toString());
     }
     
     @Test
     public void kortinJakoPakastaToimii() {
         Pakka deck = new Pakka();
-        kasi.deal(deck);
+        kasi.jaa(deck);
         ArrayList kortit = kasi.getCards();
         int koko = kortit.size();
         assertEquals(1, koko);
@@ -53,8 +53,8 @@ public class KasiTest {
     public void piilokorttiOnPiilossa() {
         Kortti eka = new Kortti(3,2);
         Kortti muu = new Kortti(3, 8);
-        kasi.deal(eka);
-        kasi.deal(muu);
+        kasi.jaa(eka);
+        kasi.jaa(muu);
         String str = kasi.toStringBlind();
         assertEquals("PATA 2 **", str);
     }
@@ -63,8 +63,8 @@ public class KasiTest {
     public void korttienArvonLaskuOikein() {
         Kortti eka = new Kortti(3,2);
         Kortti muu = new Kortti(3, 8);
-        kasi.deal(muu);
-        kasi.deal(eka);
+        kasi.jaa(muu);
+        kasi.jaa(eka);
         int arvo = kasi.getValue();
         assertEquals(10, arvo);
     }
@@ -75,8 +75,8 @@ public class KasiTest {
     public void kadenArvoOikeinAssallaAlle21() {
         Kortti eka = new Kortti(3,2);
         Kortti assa = new Kortti(3,1);
-        kasi.deal(assa);
-        kasi.deal(eka);
+        kasi.jaa(assa);
+        kasi.jaa(eka);
         int arvo = kasi.getValue();
         assertEquals(13, arvo);
     }
@@ -86,9 +86,9 @@ public class KasiTest {
         Kortti eka = new Kortti(3,6);
         Kortti toka = new Kortti(1,5);
         Kortti assa = new Kortti(3,1);
-        kasi.deal(assa);
-        kasi.deal(eka);
-        kasi.deal(toka);
+        kasi.jaa(assa);
+        kasi.jaa(eka);
+        kasi.jaa(toka);
         int arvo = kasi.getValue();
         assertEquals(12, arvo);
     }
@@ -99,10 +99,10 @@ public class KasiTest {
         Kortti toka = new Kortti(1,5);
         Kortti assa = new Kortti(3,1);
         Kortti assa2 = new Kortti(3,1);
-        kasi.deal(assa);
-        kasi.deal(eka);
-        kasi.deal(toka);
-        kasi.deal(assa2);
+        kasi.jaa(assa);
+        kasi.jaa(eka);
+        kasi.jaa(toka);
+        kasi.jaa(assa2);
         int arvo = kasi.getValue();
         assertEquals(12, arvo);
     }
