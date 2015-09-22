@@ -36,16 +36,22 @@ public class Kayttoliittyma implements Runnable {
     }
     
     private void luoKomponentit(Container cont) {
-        cont.add(new JLabel("Kortit"));
+        cont.add(new JLabel(tulostaKadet()));
         cont.add(voitotJaPanokset(), BorderLayout.NORTH);
         cont.add(luoNapit(),BorderLayout.SOUTH);
     }
     
     private JPanel luoNapit() {
         JPanel panel = new JPanel(new GridLayout(1,3));
-        panel.add(new JButton("Hit"));
-        panel.add(new JButton("Stay"));
-        panel.add(new JButton("Double down"));
+        JButton hit = new JButton("Hit");
+        panel.add(hit);
+        JButton stand = new JButton("Stand");
+        panel.add(stand);
+        JButton dd = new JButton("Double down");
+        panel.add(dd);
+        hit.addActionListener(new HitListener(peli));
+        stand.addActionListener(new StandListener(peli));
+        dd.addActionListener(new DoubleListener(peli));
         return panel;
     }
     
@@ -64,17 +70,20 @@ public class Kayttoliittyma implements Runnable {
     }
     
     private String tulostaKadet() {
-        StringBuilder viesti = new StringBuilder("Jakaja:\n");
-        if(peli.kasiKesken()) {
-            viesti.append(peli.getJakajanKasi().toStringBlind() + "\n");
-        } else {
-            viesti.append(peli.getJakajanKasi().toString() + "\n");
-        }       
-//        System.out.println("summa " + peli.getJakajanKasi().getValue());
-        viesti.append("Pelaaja:\n");
-        viesti.append(peli.getPelaajanKasi());
-//        System.out.println("summa " + peli.getPelaajanKasi().getValue());
-        return viesti.toString();
+        if (peli.getPelaajanKasi() != null) {
+            StringBuilder viesti = new StringBuilder("Jakaja:\n");
+            if(peli.kasiKesken()) {
+                viesti.append(peli.getJakajanKasi().toStringBlind() + "\n");
+            } else {
+                viesti.append(peli.getJakajanKasi().toString() + "\n");
+            }       
+    //        System.out.println("summa " + peli.getJakajanKasi().getValue());
+            viesti.append("Pelaaja:\n");
+            viesti.append(peli.getPelaajanKasi());
+    //        System.out.println("summa " + peli.getPelaajanKasi().getValue());
+            return viesti.toString();
+        }
+        return "";
     }
    
 } 

@@ -58,9 +58,11 @@ public class Blackjack {
     }
     
     public void tuplaa() {
-        panos = 2*panos;
-        pelaaja.jaa(deck);
-        kasiKesken = false;
+        if (ekaVuoro){
+            panos = 2*panos;
+            pelaaja.jaa(deck);
+            kasiKesken = false;
+        }
     }
     
     public String resolve() {
