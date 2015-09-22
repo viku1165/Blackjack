@@ -32,8 +32,13 @@ public class Pakka {
         return pakka;
     }
     
+    //turha?
     public boolean tyhja() {
         return pakka.empty();
+    }
+    
+    public int koko() {
+        return pakka.size();
     }
     
     public void yhdista(Pakka toinen) {
