@@ -1,7 +1,8 @@
 
 
-package blackjack.blackjack;
+package blackjack.main;
 
+import blackjack.logiikka.Blackjack;
 import blackjack.gui.Kayttoliittyma;
 import javax.swing.SwingUtilities;
 

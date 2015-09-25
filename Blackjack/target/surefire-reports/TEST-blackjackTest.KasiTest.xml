@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<testsuite failures="0" time="0.058" errors="0" skipped="0" tests="8" name="blackjackTest.KasiTest">
+<testsuite failures="0" time="0.05" errors="0" skipped="0" tests="8" name="blackjackTest.KasiTest">
   <properties>
     <property name="java.runtime.name" value="OpenJDK Runtime Environment"/>
     <property name="sun.boot.library.path" value="/usr/lib/jvm/java-7-openjdk-amd64/jre/lib/amd64"/>
@@ -62,12 +62,12 @@
     <property name="sun.desktop" value="gnome"/>
     <property name="sun.cpu.isalist" value=""/>
   </properties>
-  <testcase time="0.012" classname="blackjackTest.KasiTest" name="kortinJakoPakastaToimii"/>
+  <testcase time="0.01" classname="blackjackTest.KasiTest" name="kortinJakoPakastaToimii"/>
   <testcase time="0" classname="blackjackTest.KasiTest" name="kadenArvoOikeinAssallaAlle21"/>
   <testcase time="0" classname="blackjackTest.KasiTest" name="kortinJakoToimii"/>
-  <testcase time="0.001" classname="blackjackTest.KasiTest" name="kadenArvoOikeinAssallaYli21Assia1"/>
+  <testcase time="0" classname="blackjackTest.KasiTest" name="kadenArvoOikeinAssallaYli21Assia1"/>
   <testcase time="0" classname="blackjackTest.KasiTest" name="kadenArvoOikeinAssallaYli21Assia2"/>
-  <testcase time="0.001" classname="blackjackTest.KasiTest" name="kasiLuodaanTyhjana"/>
+  <testcase time="0" classname="blackjackTest.KasiTest" name="kasiLuodaanTyhjana"/>
   <testcase time="0" classname="blackjackTest.KasiTest" name="piilokorttiOnPiilossa"/>
-  <testcase time="0" classname="blackjackTest.KasiTest" name="korttienArvonLaskuOikein"/>
+  <testcase time="0.001" classname="blackjackTest.KasiTest" name="korttienArvonLaskuOikein"/>
 </testsuite>

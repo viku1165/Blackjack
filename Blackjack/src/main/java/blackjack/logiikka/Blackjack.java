@@ -1,7 +1,10 @@
 
-package blackjack.blackjack;
+package blackjack.logiikka;
 
-
+/**
+ * Mallintaa Blackjack-peliä ja pitää kirjaa pelitilanteesta
+ * 
+ */
 public class Blackjack {
     private Pakka deck;
     private Kasi jakaja;
@@ -21,7 +24,7 @@ public class Blackjack {
         jakaja = new Kasi();
         pelaaja = new Kasi();
         voitot = 0;
-        panos = 1;
+        panos = 0;
         kasiKesken = true;
     }
     
@@ -114,5 +117,6 @@ public class Blackjack {
     public boolean getEkaVuoro() {
         return ekaVuoro;
     }
+    
     
 }

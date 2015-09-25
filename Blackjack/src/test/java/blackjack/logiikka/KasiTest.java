@@ -1,13 +1,12 @@
 
 
-package blackjackTest;
+package blackjack.logiikka;
 
-import java.util.Random;
-import blackjack.blackjack.Pakka;
+import blackjack.logiikka.Pakka;
 import java.util.ArrayList;
-import blackjack.blackjack.Kortti;
-import blackjack.blackjack.Kasi;
-import blackjack.blackjack.Maa;
+import blackjack.logiikka.Kortti;
+import blackjack.logiikka.Kasi;
+import blackjack.logiikka.Maa;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;

@@ -1,7 +1,7 @@
 
 package blackjack.gui;
 
-import blackjack.blackjack.Blackjack;
+import blackjack.logiikka.Blackjack;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 

@@ -1,9 +1,9 @@
 
 
-package blackjackTest;
+package blackjack.logiikka;
 
-import blackjack.blackjack.Kasi;
-import blackjack.blackjack.Blackjack;
+import blackjack.logiikka.Kasi;
+import blackjack.logiikka.Blackjack;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -43,7 +43,7 @@ public class BlackjackTest {
             assertTrue(bj.getPelaajanKasi().getValue() < 22);
             bj.hit();
         }
-        assertTrue(bj.getPelaajanKasi().getValue() > 21);
+        assertTrue(bj.getPelaajanKasi().getValue() >= 21);
     }
     
     @Test
@@ -67,6 +67,7 @@ public class BlackjackTest {
     
     @Test
     public void tuplausTuplaaPanoksen() {
+        bj.setPanos(1);
         bj.tuplaa();
         int panos = bj.getPanos();
         assertEquals(2, panos);

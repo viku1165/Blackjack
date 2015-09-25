@@ -1,5 +1,5 @@
 
-package blackjack.blackjack;
+package blackjack.logiikka;
 
 import java.util.Stack;
 import java.util.Collections;

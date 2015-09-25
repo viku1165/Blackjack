@@ -1,5 +1,5 @@
 
-package blackjack.blackjack;
+package blackjack.logiikka;
 
 /**
  * Luokka mallintaa yhtä korttipakan korttia
@@ -28,7 +28,7 @@ public class Kortti {
     }
     
     /**
-     * Antaa kortin arvo Blackjackissä. Ässä palauttaa arvon 11.
+     * Antaa kortin arvon Blackjackissä. Ässä palauttaa arvon 11.
      * 
      * @return kortin arvo Blackjackissä
      */

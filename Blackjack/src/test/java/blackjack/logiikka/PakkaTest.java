@@ -1,10 +1,10 @@
 
-package blackjackTest;
+package blackjack.logiikka;
 
 import java.util.Stack;
-import blackjack.blackjack.Maa;
-import blackjack.blackjack.Kortti;
-import blackjack.blackjack.Pakka;
+import blackjack.logiikka.Maa;
+import blackjack.logiikka.Kortti;
+import blackjack.logiikka.Pakka;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;

@@ -1,7 +1,8 @@
 
 
-package blackjack.blackjack;
+package blackjack.tekstikayttoliittyma;
 
+import blackjack.logiikka.Blackjack;
 import java.util.Scanner;
 
 

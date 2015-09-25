@@ -1,5 +1,5 @@
 
-package blackjack.blackjack;
+package blackjack.logiikka;
 
 
 public enum Maa {

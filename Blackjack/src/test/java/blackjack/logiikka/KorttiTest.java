@@ -1,8 +1,8 @@
 
 
-package blackjackTest;
+package blackjack.logiikka;
 
-import blackjack.blackjack.Kortti;
+import blackjack.logiikka.Kortti;
 import org.junit.After;
 import org.junit.AfterClass;
 import static org.junit.Assert.*;

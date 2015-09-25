@@ -1,7 +1,7 @@
 
 package blackjack.gui;
 
-import blackjack.blackjack.Blackjack;
+import blackjack.logiikka.Blackjack;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.Container;
@@ -10,6 +10,7 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JTextField;
 import javax.swing.WindowConstants;
 
 
@@ -36,11 +37,12 @@ public class Kayttoliittyma implements Runnable {
     }
     
     private void luoKomponentit(Container cont) {
-        cont.add(new JLabel(tulostaKadet()));
+        JLabel tulostus = new JLabel(tulostaKadet());
+        cont.add(tulostus);
         cont.add(voitotJaPanokset(), BorderLayout.NORTH);
         cont.add(luoNapit(),BorderLayout.SOUTH);
     }
-    
+        
     private JPanel luoNapit() {
         JPanel panel = new JPanel(new GridLayout(1,3));
         JButton hit = new JButton("Hit");
@@ -61,16 +63,24 @@ public class Kayttoliittyma implements Runnable {
     
     private JPanel voitotJaPanokset() {
         
-        JPanel panel = new JPanel(new GridLayout(1,2));
+        JPanel panel = new JPanel(new GridLayout(1,3));
         String voitot = "Voitot: " + peli.getVoitot();
         panel.add(new JLabel(voitot));
-        //selvitettävä logiikkapuolen toteutustapaa
-        panel.add(new JLabel("Panos"));
+
+        JLabel panostxt = new JLabel("Panos: " + peli.getPanos());
+        panel.add(panostxt);
+        
+        JTextField panoskentta = new JTextField();
+        EnterKuuntelija ek = new EnterKuuntelija(panoskentta,peli,frame);
+        frame.addKeyListener(ek);
+        panel.add(panoskentta);
+        
+
         return panel;
     }
     
     private String tulostaKadet() {
-        if (peli.getPelaajanKasi() != null) {
+        if (!peli.getPelaajanKasi().getCards().isEmpty()) {
             StringBuilder viesti = new StringBuilder("Jakaja:\n");
             if(peli.kasiKesken()) {
                 viesti.append(peli.getJakajanKasi().toStringBlind() + "\n");
@@ -86,4 +96,6 @@ public class Kayttoliittyma implements Runnable {
         return "";
     }
    
+
+    
 } 
