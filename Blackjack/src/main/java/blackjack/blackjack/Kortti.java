@@ -1,7 +1,10 @@
 
 package blackjack.blackjack;
 
-
+/**
+ * Luokka mallintaa yhtä korttipakan korttia
+ * 
+ */
 public class Kortti {
         
     private Maa maa;
@@ -24,6 +27,11 @@ public class Kortti {
         return arvo;
     }
     
+    /**
+     * Antaa kortin arvo Blackjackissä. Ässä palauttaa arvon 11.
+     * 
+     * @return kortin arvo Blackjackissä
+     */
     public int bjArvo() {
         if(arvo > 10) {
             return 10;

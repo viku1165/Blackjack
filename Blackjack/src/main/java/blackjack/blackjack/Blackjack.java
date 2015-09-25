@@ -29,6 +29,10 @@ public class Blackjack {
         panos = x;
     }
     
+    public int getPanos() {
+        return panos;
+    }
+    
     public Kasi getJakajanKasi() {
         return jakaja;
     }
