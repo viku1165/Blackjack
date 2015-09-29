@@ -78,7 +78,7 @@ public class Kasi {
     }
     
     /**
-     * Kädenmerkkijonoesitys silloin, kun yksi jakajan kortti pitää esittää piilotettuna
+     * Käden merkkijonoesitys silloin, kun yksi jakajan kortti pitää esittää piilotettuna
      * @return Käden merkkijonoesitys, kun yksi kortti piilossa
      */
     public String toStringBlind() {

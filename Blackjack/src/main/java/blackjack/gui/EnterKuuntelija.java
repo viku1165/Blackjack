@@ -30,7 +30,7 @@ public class EnterKuuntelija implements KeyListener {
         if (e.getKeyCode() == KeyEvent.VK_ENTER) {
             peli.setPanos(Integer.parseInt(kentta.getText()));
         }
-        
+        kentta.setText("");
         tulostus.repaint();
     }
 

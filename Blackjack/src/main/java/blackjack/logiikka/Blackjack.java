@@ -44,6 +44,9 @@ public class Blackjack {
         return pelaaja;
     }
     
+    /**
+     * Suorittaa käden alkujaon, eli jakaa pelaajalle ja jakajalle kaksi korttia
+     */
     public void alkujako() {
         tyhjaaKadet();
         pelaaja.jaa(deck);
@@ -51,7 +54,11 @@ public class Blackjack {
         pelaaja.jaa(deck);
         jakaja.jaa(deck);
     }
-    
+       
+    /**
+     * Jakaa pelaajalle yhdenkortin lisää. Jos käden arvo ylittää tämän jälkeen
+     * 21, on käsi pelaajan osalta kesken.
+     */
     public void hit() {
         pelaaja.jaa(deck);
         if(pelaaja.getValue() >= 21) {
@@ -60,10 +67,17 @@ public class Blackjack {
         ekaVuoro = false;
     }
     
+    /**
+     * Lopettaa käden pelaajan osalta, kun pelaaja ei halua lisäkortteja.
+     */
     public void stand() {
         kasiKesken = false;
     }
     
+    /**
+     * Tuplaa käden panoksen, minkä jälkeen pelaajalle jaetaan vielä yksi kortti.
+     * Käytettävissä vain pelaajan ensimmäisellä vuorolla.
+     */
     public void tuplaa() {
         if (ekaVuoro){
             panos = 2*panos;
@@ -72,6 +86,11 @@ public class Blackjack {
         }
     }
     
+    /**
+     * Käden ollessa pelaajan osalta ohi, pelaa käden jakajan osalta, määrittää
+     * voittajan ja päivittää pelaajan voittojen arvon.
+     * @return String viesti, joka kertoo käden voittajan
+     */
     public String resolve() {
         while(jakaja.getValue() < 16) {
             jakaja.jaa(deck);
@@ -104,6 +123,10 @@ public class Blackjack {
         return kasiKesken;
     }
     
+    /**
+     * Aloittaa uuden käden, eli tyhjää kädet ja nollaa pelitilannetta kuvaavat
+     * boolean-muuttujat kasiKesken ja ekaVuoro.
+     */
     public void tyhjaaKadet() {
         jakaja = new Kasi();
         pelaaja = new Kasi();
