@@ -1,4 +1,4 @@
-4.9. n. 3h git ym. setuppia **ja** aihemäärittelyn kirjoittamista. Lisäksi viikolla aiemmin epämääräinen aika aiheen miettimistä
+4.9. n. 3h git ym. setuppia ja aihemäärittelyn kirjoittamista. Lisäksi viikolla aiemmin epämääräinen aika aiheen miettimistä
 
 8.9. n. 2,5h koodaamista
 
