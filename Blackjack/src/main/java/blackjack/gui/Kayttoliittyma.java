@@ -52,9 +52,10 @@ public class Kayttoliittyma implements Runnable {
         panel.add(stand);
         JButton dd = new JButton("Double down");
         panel.add(dd);
-        hit.addActionListener(new HitListener(peli,tulostus));
-        stand.addActionListener(new StandListener(peli,tulostus));
-        dd.addActionListener(new DoubleListener(peli, tulostus));
+        KomentoKuuntelija kk = new KomentoKuuntelija(peli, hit, stand, dd, tulostus);
+        hit.addActionListener(kk);
+        stand.addActionListener(kk);
+        dd.addActionListener(kk);
         return panel;
     }
     
@@ -80,5 +81,5 @@ public class Kayttoliittyma implements Runnable {
         return panel;
     }
     
-    
+
 } 

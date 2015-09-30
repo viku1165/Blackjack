@@ -87,4 +87,12 @@ public class Kasi {
         return str;
     }
     
+    /**
+     * Kertoo onko käsi tyhjä.
+     * @return boolean onko käsi tyhjä
+     */
+    public boolean tyhja() {
+        return cards.isEmpty();
+    }
+    
 }

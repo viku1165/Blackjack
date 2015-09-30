@@ -87,14 +87,22 @@ public class Blackjack {
     }
     
     /**
-     * Käden ollessa pelaajan osalta ohi, pelaa käden jakajan osalta, määrittää
-     * voittajan ja päivittää pelaajan voittojen arvon.
+     * Jakaa jakajan käteen kortin, jos jakajan käden arvo alle 17.
+     * @return boolean jaettiinko kortti
+     */
+    public boolean jaaJakajalle() {
+        if (jakaja.getValue() < 17) {
+            jakaja.jaa(deck);
+            return true;
+        }
+        return false;
+    }
+    
+    /**
+     * Määrittää pelin käden voittajan.
      * @return String viesti, joka kertoo käden voittajan
      */
     public String resolve() {
-        while(jakaja.getValue() < 16) {
-            jakaja.jaa(deck);
-        }
         
         if(pelaaja.getValue() > 21) {
             if (jakaja.getValue() > 21) {
@@ -143,7 +151,7 @@ public class Blackjack {
     
     @Override
     public String toString() {
-        if (!pelaaja.getCards().isEmpty()) {
+        if (!pelaaja.tyhja()) {
             StringBuilder viesti = new StringBuilder("Jakaja:\n");
             if(kasiKesken()) {
                 viesti.append(jakaja.toStringBlind() + "\n");
