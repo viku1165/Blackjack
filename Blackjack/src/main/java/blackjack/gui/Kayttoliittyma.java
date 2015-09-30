@@ -18,6 +18,7 @@ public class Kayttoliittyma implements Runnable {
     
     private JFrame frame;
     private Blackjack peli;
+    private JLabel tulostus;
     
     public Kayttoliittyma(Blackjack bj) {
         peli = bj;
@@ -37,7 +38,7 @@ public class Kayttoliittyma implements Runnable {
     }
     
     private void luoKomponentit(Container cont) {
-        JLabel tulostus = new JLabel(tulostaKadet());
+        tulostus = new JLabel("Aseta panos ja paina hit");
         cont.add(tulostus);
         cont.add(voitotJaPanokset(), BorderLayout.NORTH);
         cont.add(luoNapit(),BorderLayout.SOUTH);
@@ -51,9 +52,9 @@ public class Kayttoliittyma implements Runnable {
         panel.add(stand);
         JButton dd = new JButton("Double down");
         panel.add(dd);
-        hit.addActionListener(new HitListener(peli));
-        stand.addActionListener(new StandListener(peli));
-        dd.addActionListener(new DoubleListener(peli));
+        hit.addActionListener(new HitListener(peli,tulostus));
+        stand.addActionListener(new StandListener(peli,tulostus));
+        dd.addActionListener(new DoubleListener(peli, tulostus));
         return panel;
     }
     
@@ -67,35 +68,17 @@ public class Kayttoliittyma implements Runnable {
         String voitot = "Voitot: " + peli.getVoitot();
         panel.add(new JLabel(voitot));
 
-        JLabel panostxt = new JLabel("Panos: " + peli.getPanos());
-        panel.add(panostxt);
-        
         JTextField panoskentta = new JTextField();
-        EnterKuuntelija ek = new EnterKuuntelija(panoskentta,peli,frame);
-        frame.addKeyListener(ek);
         panel.add(panoskentta);
         
+        JLabel panostxt = new JLabel("Panos: " + peli.getPanos());
+        panel.add(panostxt);
 
+        EnterKuuntelija ek = new EnterKuuntelija(panoskentta,peli,panostxt);
+        panoskentta.addKeyListener(ek);
+        
         return panel;
     }
     
-    private String tulostaKadet() {
-        if (!peli.getPelaajanKasi().getCards().isEmpty()) {
-            StringBuilder viesti = new StringBuilder("Jakaja:\n");
-            if(peli.kasiKesken()) {
-                viesti.append(peli.getJakajanKasi().toStringBlind() + "\n");
-            } else {
-                viesti.append(peli.getJakajanKasi().toString() + "\n");
-            }       
-    //        System.out.println("summa " + peli.getJakajanKasi().getValue());
-            viesti.append("Pelaaja:\n");
-            viesti.append(peli.getPelaajanKasi());
-    //        System.out.println("summa " + peli.getPelaajanKasi().getValue());
-            return viesti.toString();
-        }
-        return "";
-    }
-   
-
     
 } 

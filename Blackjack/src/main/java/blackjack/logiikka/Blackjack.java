@@ -141,5 +141,22 @@ public class Blackjack {
         return ekaVuoro;
     }
     
+    @Override
+    public String toString() {
+        if (!pelaaja.getCards().isEmpty()) {
+            StringBuilder viesti = new StringBuilder("Jakaja:\n");
+            if(kasiKesken()) {
+                viesti.append(jakaja.toStringBlind() + "\n");
+            } else {
+                viesti.append(jakaja.toString() + "\n");
+            }       
+    //        System.out.println("summa " + peli.getJakajanKasi().getValue());
+            viesti.append("Pelaaja:\n");
+            viesti.append(pelaaja);
+    //        System.out.println("summa " + peli.getPelaajanKasi().getValue());
+            return viesti.toString();
+        }
+        return "";
+    }            
     
 }

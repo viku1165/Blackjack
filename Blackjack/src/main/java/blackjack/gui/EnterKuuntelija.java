@@ -3,9 +3,9 @@
 package blackjack.gui;
 
 import blackjack.logiikka.Blackjack;
-import java.awt.Component;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import javax.swing.JLabel;
 import javax.swing.JTextField;
 
 
@@ -13,12 +13,12 @@ public class EnterKuuntelija implements KeyListener {
     
     JTextField kentta;
     Blackjack peli;
-    Component tulostus;
+    JLabel panostulostus;
     
-    public EnterKuuntelija(JTextField jta, Blackjack bj, Component c) {
+    public EnterKuuntelija(JTextField jta, Blackjack bj, JLabel jl) {
         peli = bj;
         kentta = jta;
-        tulostus = c;
+        panostulostus = jl;
     }
 
     @Override
@@ -31,7 +31,7 @@ public class EnterKuuntelija implements KeyListener {
             peli.setPanos(Integer.parseInt(kentta.getText()));
         }
         kentta.setText("");
-        tulostus.repaint();
+        panostulostus.setText("Panos: " + peli.getPanos());
     }
 
     @Override
