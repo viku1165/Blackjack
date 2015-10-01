@@ -165,6 +165,15 @@ public class Blackjack {
             return viesti.toString();
         }
         return "";
-    }            
+    }
+    
+    
+    /**
+     * Kertoo, onko pelissä jaettu kortteja, eli ovatko pelin kädet tyhjiä
+     * @return boolean ovatko kädet tyhjät
+     */
+    public boolean kadetTyhjat() {
+        return pelaaja.tyhja();
+    }
     
 }

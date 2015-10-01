@@ -6,7 +6,7 @@ import blackjack.logiikka.Blackjack;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JButton;
-import javax.swing.JLabel;
+import javax.swing.JTextField;
 
 public class KomentoKuuntelija implements ActionListener {
     
@@ -14,21 +14,25 @@ public class KomentoKuuntelija implements ActionListener {
     private JButton hit;
     private JButton stand;
     private JButton tuplaus;
-    private JLabel tulostus;
+    private KorttiKentta kortit;
+    private JTextField viesti;
     
-    public KomentoKuuntelija(Blackjack bj, JButton hit, JButton stand, JButton dd, JLabel tulostus) {
+    public KomentoKuuntelija(Blackjack bj, JButton hit, JButton stand, JButton dd, KorttiKentta tulostus, JTextField jtf) {
         peli = bj;
         this.hit = hit;
         this.stand = stand;
         tuplaus = dd;
-        this.tulostus = tulostus;
+        this.kortit = tulostus;
+        viesti = jtf;
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        if (peli.getPelaajanKasi().tyhja()) {
+        boolean kasiLoppu = false;
+        if (peli.kadetTyhjat()) {
             peli.alkujako();
-            tulostus.setText(peli.toString());
+            kortit.paivita();
+            viesti.setText("pelaa käyttäen alla olevia komentopainikkeita");
         } else if (peli.kasiKesken()) {
             if (e.getSource() == hit) {
                 peli.hit();
@@ -37,12 +41,17 @@ public class KomentoKuuntelija implements ActionListener {
             } else if (e.getSource() == tuplaus) {
                 peli.tuplaa();
             }
-            tulostus.setText(peli.toString());
+            kortit.paivita();
+        } else if (peli.jaaJakajalle()) {
+            kortit.paivita();
+        } else if (!kasiLoppu){
+            viesti.setText(peli.resolve());
+            kasiLoppu = true;
         } else {
-            while (peli.jaaJakajalle()) {
-                tulostus.setText(peli.toString());
-            }
-            tulostus.setText(peli.resolve());
+            peli.tyhjaaKadet();
+            peli.setPanos(0);
+            kortit.paivita();
+            viesti.setText("Aseta panos ja paina komentonappulaa");
         }
     }
     
