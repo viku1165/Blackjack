@@ -19,3 +19,7 @@
 25.9. n. 3h Lisää testejä, javadoc muille logiikkaluokille paitsi Blackjack ja Maa-enum. Käyttöliittymäsäätöä ja -opiskelua.
 
 25.9. n. 1h netissä swing-opiskelua
+
+30.9. n 1-2h käyttöliitymän ohjelmointia
+
+1.10. n. 4h sitä samaa
