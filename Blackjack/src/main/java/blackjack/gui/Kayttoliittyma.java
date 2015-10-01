@@ -76,7 +76,7 @@ public class Kayttoliittyma implements Runnable {
         JLabel panostxt = new JLabel("Panos: " + peli.getPanos());
         panel.add(panostxt);
 
-        EnterKuuntelija ek = new EnterKuuntelija(panoskentta,peli,panostxt,viestikentta);
+        EnterKuuntelija ek = new EnterKuuntelija(panoskentta,peli,panostxt,viestikentta,kortit);
         panoskentta.addKeyListener(ek);
         
         return panel;

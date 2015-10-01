@@ -15,12 +15,14 @@ public class EnterKuuntelija implements KeyListener {
     Blackjack peli;
     JLabel panostulostus;
     JTextField viesti;
+    KorttiKentta kortit;
     
-    public EnterKuuntelija(JTextField jta, Blackjack bj, JLabel jl, JTextField viesti) {
+    public EnterKuuntelija(JTextField jta, Blackjack bj, JLabel jl, JTextField viesti, KorttiKentta k) {
         peli = bj;
         kentta = jta;
         panostulostus = jl;
         this.viesti = viesti;
+        kortit = k;
     }
 
     @Override
@@ -36,21 +38,24 @@ public class EnterKuuntelija implements KeyListener {
                 kentta.setText("");
                 panostulostus.setText("Panos: " + peli.getPanos());
                 viesti.setText("panos asetettu, paina mitä paniketta jakaaksesi kortit");
-            } //else if (peli.kadetTyhjat()) {
-//                peli.alkujako();
-//                kortit.paivita();
-//                viesti.setText("pelaa käyttäen alla olevia komentopainikkeita");
-//            } else if (peli.jaaJakajalle()) {
-//                kortit.paivita();
-//            } else if (!kasiLoppu){
-//                viesti.setText(peli.resolve());
-//                kasiLoppu = true;
-//            } else {
-//                peli.tyhjaaKadet();
-//                peli.setPanos(0);
-//                kortit.paivita();
-//                viesti.setText("Aseta panos ja paina komentonappulaa");
-//            }
+            } else if (peli.kadetTyhjat()) {
+                peli.alkujako();
+                kortit.paivita();
+                viesti.setText("pelaa käyttäen alla olevia komentopainikkeita");
+            } else if (!peli.kasiKesken()) { //tästä eteenpäin ei toimi
+                if (peli.jaaJakajalle()) {
+                    kortit.paivita();
+                } else if (!kasiLoppu){
+                    viesti.setText(peli.resolve());
+                    kasiLoppu = true;
+                } else {
+                    peli.tyhjaaKadet();
+                    peli.setPanos(0);
+                    kortit.paivita();
+                    viesti.setText("Aseta panos ja paina komentonappulaa");
+                }
+            }
+
             
         }
     }

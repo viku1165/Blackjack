@@ -6,7 +6,7 @@ import blackjack.logiikka.Blackjack;
 import javax.swing.JLabel;
 
 
-public class KorttiKentta extends JLabel{
+public class KorttiKentta extends JLabel implements Paivitettava{
     
     private Blackjack peli;
     
