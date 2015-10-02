@@ -13,16 +13,14 @@ public class EnterKuuntelija implements KeyListener {
     
     JTextField kentta;
     Blackjack peli;
-    JLabel panostulostus;
     JTextField viesti;
-    KorttiKentta kortit;
+    Paivityslista pvlista;
     
-    public EnterKuuntelija(JTextField jta, Blackjack bj, JLabel jl, JTextField viesti, KorttiKentta k) {
+    public EnterKuuntelija(JTextField jta, Blackjack bj, JTextField viesti, Paivityslista pl) {
         peli = bj;
         kentta = jta;
-        panostulostus = jl;
         this.viesti = viesti;
-        kortit = k;
+        pvlista = pl;
     }
 
     @Override
@@ -31,27 +29,27 @@ public class EnterKuuntelija implements KeyListener {
 
     @Override
     public void keyPressed(KeyEvent e) {
-        boolean kasiLoppu = false;
+
         if (e.getKeyCode() == KeyEvent.VK_ENTER) {
             if (peli.getPanos() == 0) {
                 peli.setPanos(Integer.parseInt(kentta.getText()));
                 kentta.setText("");
-                panostulostus.setText("Panos: " + peli.getPanos());
+                pvlista.paivita();
                 viesti.setText("panos asetettu, paina mitä paniketta jakaaksesi kortit");
             } else if (peli.kadetTyhjat()) {
                 peli.alkujako();
-                kortit.paivita();
+                pvlista.paivita();
                 viesti.setText("pelaa käyttäen alla olevia komentopainikkeita");
             } else if (!peli.kasiKesken()) { //tästä eteenpäin ei toimi
                 if (peli.jaaJakajalle()) {
-                    kortit.paivita();
-                } else if (!kasiLoppu){
+                    pvlista.paivita();
+                } else if (!peli.valmisAlkujakoon()){
                     viesti.setText(peli.resolve());
-                    kasiLoppu = true;
+                    peli.setValmisAlkujakoon(true);
                 } else {
                     peli.tyhjaaKadet();
                     peli.setPanos(0);
-                    kortit.paivita();
+                    pvlista.paivita();
                     viesti.setText("Aseta panos ja paina komentonappulaa");
                 }
             }

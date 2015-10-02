@@ -21,7 +21,12 @@ public class KorttiKentta extends JLabel implements Paivitettava{
     }
     
     private String convert(String orig) {
-        return "<html>" + orig.replaceAll("\n", "<br>");
+        orig = "<html>" + orig.replaceAll("\n", "<br>");
+        orig = orig.replaceAll("HERTTA", "<font color = 'red'>\u2764</font>");
+        orig = orig.replaceAll("RUUTU", "<font color = 'red'>\u2666</font>");
+        orig = orig.replaceAll("RISTI", "\u2663");
+        orig = orig.replaceAll("PATA", "\u2660");
+        return orig;
     }
     
 }

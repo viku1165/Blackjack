@@ -12,7 +12,12 @@ public class Blackjack {
     private int voitot;
     private boolean kasiKesken;
     private boolean ekaVuoro;
+    private boolean valmisAlkujakoon;
     
+    /**
+     * Luo Blackjack-pelin, jossa haluttu määrä pakkoja
+     * @param pakkoja pelissä käytettävien pakkojen määrä
+     */
     public Blackjack(int pakkoja) {
         deck = new Pakka();
         for (int i = 1; i < pakkoja; i++) {
@@ -25,6 +30,7 @@ public class Blackjack {
         voitot = 0;
         panos = 0;
         kasiKesken = true;
+        valmisAlkujakoon = false;
     }
     
     public void setPanos(int x) {
@@ -98,11 +104,12 @@ public class Blackjack {
     }
     
     /**
-     * Määrittää pelin käden voittajan.
+     * Määrittää pelin käden voittajan. Metodin suorittamisen jälkeen käsi on loppu
+     * ja voidaan suorittaa seuraava alkujako.
      * @return String viesti, joka kertoo käden voittajan
      */
     public String resolve() {
-        
+        valmisAlkujakoon = true;
         if(pelaaja.getValue() > 21) {
             if (jakaja.getValue() > 21) {
                 return "tasapeli";
@@ -126,19 +133,29 @@ public class Blackjack {
         return "pelaaja voittaa";
     }
     
+    //käsien setterit resolve():n testaamiseen
+    public void setPelaajanKasi(Kasi kasi) {
+        pelaaja = kasi;
+    }
+    
+    public void setJakajanKasi(Kasi kasi) {
+        jakaja = kasi;
+    }
+    
     public boolean kasiKesken() {
         return kasiKesken;
     }
     
     /**
      * Aloittaa uuden käden, eli tyhjää kädet ja nollaa pelitilannetta kuvaavat
-     * boolean-muuttujat kasiKesken ja ekaVuoro.
+     * boolean-muuttujat kasiKesken, ekaVuoro ja valmisAlkuJakoon.
      */
     public void tyhjaaKadet() {
         jakaja = new Kasi();
         pelaaja = new Kasi();
         kasiKesken = true;
         ekaVuoro = true;
+        valmisAlkujakoon = false;
     }
     
     public int getVoitot() {
@@ -173,6 +190,14 @@ public class Blackjack {
      */
     public boolean kadetTyhjat() {
         return pelaaja.tyhja();
+    }
+    
+    public boolean valmisAlkujakoon() {
+        return valmisAlkujakoon;
+    }
+    
+    public void setValmisAlkujakoon(boolean b) {
+        valmisAlkujakoon = b;
     }
     
 }

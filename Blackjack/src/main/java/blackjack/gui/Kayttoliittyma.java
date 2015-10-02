@@ -19,7 +19,7 @@ public class Kayttoliittyma implements Runnable {
     
     private JFrame frame;
     private Blackjack peli;
-    private KorttiKentta kortit;
+    private Paivityslista paivityslista;
     private JTextField viestikentta;
     
     public Kayttoliittyma(Blackjack bj) {
@@ -40,6 +40,7 @@ public class Kayttoliittyma implements Runnable {
     }
     
     private void luoKomponentit(Container cont) {
+        paivityslista = new Paivityslista();
         cont.add(tulostusKentat());
         cont.add(voitotJaPanokset(), BorderLayout.NORTH);
         cont.add(luoNapit(),BorderLayout.SOUTH);
@@ -53,7 +54,7 @@ public class Kayttoliittyma implements Runnable {
         panel.add(stand);
         JButton dd = new JButton("Double down");
         panel.add(dd);
-        KomentoKuuntelija kk = new KomentoKuuntelija(peli, hit, stand, dd, kortit,viestikentta);
+        KomentoKuuntelija kk = new KomentoKuuntelija(peli, hit, stand, dd, paivityslista,viestikentta);
         hit.addActionListener(kk);
         stand.addActionListener(kk);
         dd.addActionListener(kk);
@@ -67,25 +68,28 @@ public class Kayttoliittyma implements Runnable {
     private JPanel voitotJaPanokset() {
         
         JPanel panel = new JPanel(new GridLayout(1,3));
-        String voitot = "Voitot: " + peli.getVoitot();
-        panel.add(new JLabel(voitot));
+        Voittokentta voitot = new Voittokentta(peli);
+        panel.add(voitot);
+        paivityslista.lisaa(voitot);
 
-        JTextField panoskentta = new JTextField();
-        panel.add(panoskentta);
+        JTextField panossyotto = new JTextField();
+        panel.add(panossyotto);
         
-        JLabel panostxt = new JLabel("Panos: " + peli.getPanos());
-        panel.add(panostxt);
+        Panoskentta panostulostus = new Panoskentta(peli);
+        panel.add(panostulostus);
+        paivityslista.lisaa(panostulostus);
 
-        EnterKuuntelija ek = new EnterKuuntelija(panoskentta,peli,panostxt,viestikentta,kortit);
-        panoskentta.addKeyListener(ek);
+        EnterKuuntelija ek = new EnterKuuntelija(panossyotto,peli,viestikentta,paivityslista);
+        panossyotto.addKeyListener(ek);
         
         return panel;
     }
     
     private JPanel tulostusKentat() {
         JPanel panel = new JPanel(new GridLayout(2,1));
-        kortit = new KorttiKentta(peli);
+        KorttiKentta kortit = new KorttiKentta(peli);
         panel.add(kortit);
+        paivityslista.lisaa(kortit);
         viestikentta = new JTextField("Aseta panos ja paina komentonappulaa");
         viestikentta.setEditable(false);
         panel.add(viestikentta);

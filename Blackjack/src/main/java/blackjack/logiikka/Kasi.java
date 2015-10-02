@@ -11,6 +11,9 @@ import java.util.ArrayList;
 public class Kasi {
     private ArrayList<Kortti> cards;
     
+    /**
+     * Luo uuden, tyhjän käden
+     */
     public Kasi() {
         cards = new ArrayList<>();
     }
@@ -72,7 +75,7 @@ public class Kasi {
     public String toString() {
         String tulos = cards.get(0).toString();
         for (int i = 1; i < cards.size(); i++) {
-            tulos = tulos + " " + cards.get(i).toString();
+            tulos = tulos + "   " + cards.get(i).toString();
         }
         return tulos;
     }
@@ -83,7 +86,7 @@ public class Kasi {
      */
     public String toStringBlind() {
         String str = cards.get(0).toString();
-        str = str + " **";
+        str = str + "  **";
         return str;
     }
     

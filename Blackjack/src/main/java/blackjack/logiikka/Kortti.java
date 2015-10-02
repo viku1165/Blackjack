@@ -10,6 +10,11 @@ public class Kortti {
     private Maa maa;
     private int arvo;
     
+    /**
+     * Luo kortin annetulla arvolla ja maalla.
+     * @param no Kertoo kortin maan: 1=ruutu, 2=risti, 3=pata ja 4=hertta
+     * @param arvo kertoo kortin arvon. Ässä on 1.
+     */
     public Kortti(int no, int arvo) {
         if (no == 1) {
             maa = Maa.RUUTU;

@@ -55,7 +55,7 @@ public class KasiTest {
         kasi.jaa(eka);
         kasi.jaa(muu);
         String str = kasi.toStringBlind();
-        assertEquals("PATA 2 **", str);
+        assertEquals("PATA 2  **", str);
     }
     
     @Test
