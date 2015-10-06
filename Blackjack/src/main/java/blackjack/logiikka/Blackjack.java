@@ -1,5 +1,7 @@
 package blackjack.logiikka;
 
+import java.util.ArrayList;
+
 /**
  * Mallintaa Blackjack-peliä ja pitää kirjaa pelitilanteesta
  * 
@@ -8,11 +10,13 @@ public class Blackjack {
     private Pakka deck;
     private Kasi jakaja;
     private Kasi pelaaja;
+    private Kasi split;
     private int panos;
     private int voitot;
     private boolean kasiKesken;
     private boolean ekaVuoro;
     private boolean valmisAlkujakoon;
+    private boolean splitattu;
     
     /**
      * Luo Blackjack-pelin, jossa haluttu määrä pakkoja
@@ -31,6 +35,7 @@ public class Blackjack {
         panos = 0;
         kasiKesken = true;
         valmisAlkujakoon = false;
+        splitattu = false;
     }
     
     public void setPanos(int x) {
@@ -65,18 +70,31 @@ public class Blackjack {
      * 21, on käsi pelaajan osalta kesken.
      */
     public void hit() {
-        pelaaja.jaa(deck);
-        if(pelaaja.getValue() >= 21) {
-            kasiKesken = false;
+        if(!pelaaja.getValmis()) {
+            pelaaja.jaa(deck);
+            if(pelaaja.bust()){
+                pelaaja.valmista();
+            }
+        } else if (splitattu) {
+            if(!split.getValmis()) {
+                split.jaa(deck);
+                if (split.bust()) {
+                    split.valmista();
+                }
+            }
         }
-        ekaVuoro = false;
     }
     
     /**
      * Lopettaa käden pelaajan osalta, kun pelaaja ei halua lisäkortteja.
      */
     public void stand() {
-        kasiKesken = false;
+        if (!pelaaja.getValmis()) {
+            pelaaja.valmista(); 
+        } else if (splitattu) {
+            split.valmista();
+        }
+             
     }
     
     /**
@@ -84,11 +102,29 @@ public class Blackjack {
      * Käytettävissä vain pelaajan ensimmäisellä vuorolla.
      */
     public void tuplaa() {
-        if (ekaVuoro){
+        if (pelaaja.ekaVuoro() && !pelaaja.getValmis()){
             panos = 2*panos;
             pelaaja.jaa(deck);
             kasiKesken = false;
         }
+    }
+    
+    private void split() {
+        if (pelaaja.ekaVuoro() && !splitattu) {
+            ArrayList<Kortti> kortit = pelaaja.getCards();
+            Kortti kortti1 = kortit.get(0);
+            Kortti kortti2 = kortit.get(1);
+            if (kortti1.getArvo() == kortti2.getArvo()) {
+                pelaaja = new Kasi();
+                pelaaja.jaa(kortti1);
+                pelaaja.jaa(deck);
+                split = new Kasi();
+                split.jaa(kortti2);
+                split.jaa(deck);
+
+                splitattu = true;
+            }
+        }    
     }
     
     /**
@@ -156,6 +192,7 @@ public class Blackjack {
         kasiKesken = true;
         ekaVuoro = true;
         valmisAlkujakoon = false;
+        splitattu = false;
     }
     
     public int getVoitot() {

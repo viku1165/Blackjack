@@ -10,12 +10,17 @@ import java.util.ArrayList;
  */
 public class Kasi {
     private ArrayList<Kortti> cards;
+    private boolean valmis;
+    private int panos;
     
     /**
      * Luo uuden, tyhjän käden
+     * @param int Käden panos
      */
     public Kasi() {
         cards = new ArrayList<>();
+        valmis = false;
+        panos = 0;
     }
     
     /**
@@ -96,6 +101,31 @@ public class Kasi {
      */
     public boolean tyhja() {
         return cards.isEmpty();
+    }
+    
+    
+    public boolean bust() {
+        return getValue() > 21;
+    }
+    
+    public boolean ekaVuoro() {
+        return cards.size() == 2;
+    }
+    
+    public void valmista() {
+        valmis = true;
+    }
+    
+    public boolean getValmis() {
+        return valmis;
+    }
+    
+    public int getPanos() {
+        return panos;
+    }
+    
+    public void tuplaaPanos() {
+        panos *= 2;
     }
     
 }
