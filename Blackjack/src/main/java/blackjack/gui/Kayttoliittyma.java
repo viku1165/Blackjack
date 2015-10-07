@@ -54,6 +54,7 @@ public class Kayttoliittyma implements Runnable {
         panel.add(stand);
         JButton dd = new JButton("Double down");
         panel.add(dd);
+        JButton splittaa = new JButton("Split");
         KomentoKuuntelija kk = new KomentoKuuntelija(peli, hit, stand, dd, paivityslista,viestikentta);
         hit.addActionListener(kk);
         stand.addActionListener(kk);

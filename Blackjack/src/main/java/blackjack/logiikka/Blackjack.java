@@ -13,8 +13,6 @@ public class Blackjack {
     private Kasi split;
     private int panos;
     private int voitot;
-    private boolean kasiKesken;
-    private boolean ekaVuoro;
     private boolean valmisAlkujakoon;
     private boolean splitattu;
     
@@ -33,7 +31,6 @@ public class Blackjack {
         pelaaja = new Kasi();
         voitot = 0;
         panos = 0;
-        kasiKesken = true;
         valmisAlkujakoon = false;
         splitattu = false;
     }
@@ -103,12 +100,21 @@ public class Blackjack {
      */
     public void tuplaa() {
         if (pelaaja.ekaVuoro() && !pelaaja.getValmis()){
-            panos = 2*panos;
+            pelaaja.tuplaaPanos();
             pelaaja.jaa(deck);
-            kasiKesken = false;
+            pelaaja.valmista();
+        } else if (splitattu) {
+            if(split.ekaVuoro() && !split.getValmis()) {
+                split.tuplaaPanos();
+                split.jaa(deck);
+                split.valmista();
+            }
         }
     }
     
+    /**
+     * Mikäli kädessä on pari, jakaa kortit erillisiin käsiin ja jakaa kumpaankin kortin
+     */
     private void split() {
         if (pelaaja.ekaVuoro() && !splitattu) {
             ArrayList<Kortti> kortit = pelaaja.getCards();
@@ -142,30 +148,41 @@ public class Blackjack {
     /**
      * Määrittää pelin käden voittajan. Metodin suorittamisen jälkeen käsi on loppu
      * ja voidaan suorittaa seuraava alkujako.
+     * @param kasitellaanSplit Jos true, niin metodi käsittelee split-käden, muutoin pelaajan "ensimmäisen" käden
      * @return String viesti, joka kertoo käden voittajan
      */
-    public String resolve() {
-        valmisAlkujakoon = true;
-        if(pelaaja.getValue() > 21) {
+    public String resolve(boolean kasitellaanSplit) {
+        if (kasitellaanSplit) {
+            valmisAlkujakoon = true;
+        } else if (!splitattu) {
+            valmisAlkujakoon = true;
+        }
+        
+        Kasi kasiteltava = pelaaja;
+        if (kasitellaanSplit) {
+            kasiteltava = split;
+        }
+        
+        if(kasiteltava.getValue() > 21) {
             if (jakaja.getValue() > 21) {
                 return "tasapeli";
             } else {
-                voitot -= panos;
+                voitot -= kasiteltava.getPanos();
                 return "jakaja voittaa";
             }
         }
         if (jakaja.getValue() > 21) {
-            voitot += panos;
+            voitot += kasiteltava.getPanos();
             return "pelaaja voittaa";
         }
-        if (jakaja.getValue() > pelaaja.getValue() ) {
-            voitot -= panos;
+        if (jakaja.getValue() > kasiteltava.getValue() ) {
+            voitot -= kasiteltava.getPanos();
             return "jakaja voittaa";
         }
-        if (jakaja.getValue() == pelaaja.getValue() ) {
+        if (jakaja.getValue() == kasiteltava.getValue() ) {
             return "tasapeli";
         }
-        voitot += panos;
+        voitot += kasiteltava.getPanos();
         return "pelaaja voittaa";
     }
     
@@ -178,9 +195,6 @@ public class Blackjack {
         jakaja = kasi;
     }
     
-    public boolean kasiKesken() {
-        return kasiKesken;
-    }
     
     /**
      * Aloittaa uuden käden, eli tyhjää kädet ja nollaa pelitilannetta kuvaavat
@@ -189,8 +203,6 @@ public class Blackjack {
     public void tyhjaaKadet() {
         jakaja = new Kasi();
         pelaaja = new Kasi();
-        kasiKesken = true;
-        ekaVuoro = true;
         valmisAlkujakoon = false;
         splitattu = false;
     }
@@ -198,15 +210,13 @@ public class Blackjack {
     public int getVoitot() {
         return voitot;
     }
-    public boolean getEkaVuoro() {
-        return ekaVuoro;
-    }
+
     
     @Override
     public String toString() {
         if (!pelaaja.tyhja()) {
             StringBuilder viesti = new StringBuilder("Jakaja:\n");
-            if(kasiKesken()) {
+            if(!pelaaja.getValmis()) {
                 viesti.append(jakaja.toStringBlind() + "\n");
             } else {
                 viesti.append(jakaja.toString() + "\n");
