@@ -23,3 +23,9 @@
 30.9. n 1-2h käyttöliitymän ohjelmointia
 
 1.10. n. 4h sitä samaa
+
+6.10. n 1,5h aloitettiin splittaamisen tekeminen
+
+7.10. n.1h splittaamista
+
+8.10. n.2h splittaamisen implementointia, käyttöliittymän muokkausta
