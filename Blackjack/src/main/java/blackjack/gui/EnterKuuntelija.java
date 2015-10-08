@@ -13,10 +13,10 @@ public class EnterKuuntelija implements KeyListener {
     
     JTextField kentta;
     Blackjack peli;
-    JTextField viesti;
+    Viestikentta viesti;
     Paivityslista pvlista;
     
-    public EnterKuuntelija(JTextField jta, Blackjack bj, JTextField viesti, Paivityslista pl) {
+    public EnterKuuntelija(JTextField jta, Blackjack bj, Viestikentta viesti, Paivityslista pl) {
         peli = bj;
         kentta = jta;
         this.viesti = viesti;
@@ -35,23 +35,22 @@ public class EnterKuuntelija implements KeyListener {
                 peli.setPanos(Integer.parseInt(kentta.getText()));
                 kentta.setText("");
                 pvlista.paivita();
-                viesti.setText("panos asetettu, paina mitä paniketta jakaaksesi kortit");
+                viesti.uusiViesti("panos asetettu, paina mitä paniketta jakaaksesi kortit");
             } else if (peli.kadetTyhjat()) {
                 peli.alkujako();
                 pvlista.paivita();
-                viesti.setText("pelaa käyttäen alla olevia komentopainikkeita");
-            } else if (!peli.kasiKesken()) { //tästä eteenpäin ei toimi
-                if (peli.jaaJakajalle()) {
-                    pvlista.paivita();
-                } else if (!peli.valmisAlkujakoon()){
-                    viesti.setText(peli.resolve());
-                    peli.setValmisAlkujakoon(true);
-                } else {
-                    peli.tyhjaaKadet();
-                    peli.setPanos(0);
-                    pvlista.paivita();
-                    viesti.setText("Aseta panos ja paina komentonappulaa");
-                }
+                viesti.uusiViesti("pelaa käyttäen alla olevia komentopainikkeita");
+            } else if (peli.jaaJakajalle()) {
+                pvlista.paivita();
+            } else if (!peli.valmisAlkujakoon()){
+                viesti.uusiViesti(peli.resolve(true));
+
+                peli.setValmisAlkujakoon(true);
+            } else {
+                peli.tyhjaaKadet();
+                peli.setPanos(0);
+                pvlista.paivita();
+                viesti.uusiViesti("Aseta panos ja paina komentonappulaa");
             }
 
             

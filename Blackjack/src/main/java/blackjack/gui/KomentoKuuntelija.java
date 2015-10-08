@@ -14,16 +14,18 @@ public class KomentoKuuntelija implements ActionListener {
     private JButton hit;
     private JButton stand;
     private JButton tuplaus;
+    private JButton split;
     private Paivityslista pvlista;
-    private JTextField viesti;
+    private Viestikentta viesti;
     
-    public KomentoKuuntelija(Blackjack bj, JButton hit, JButton stand, JButton dd, Paivityslista pl, JTextField jtf) {
+    public KomentoKuuntelija(Blackjack bj, JButton hit, JButton stand, JButton dd, JButton s, Paivityslista pl, Viestikentta vk) {
         peli = bj;
         this.hit = hit;
         this.stand = stand;
         tuplaus = dd;
+        split = s;
         pvlista = pl;
-        viesti = jtf;
+        viesti = vk;
     }
 
     @Override
@@ -32,26 +34,31 @@ public class KomentoKuuntelija implements ActionListener {
         if (peli.kadetTyhjat()) {
             peli.alkujako();
             pvlista.paivita();
-            viesti.setText("pelaa käyttäen alla olevia komentopainikkeita");
-        } else if (peli.kasiKesken()) {
+            viesti.uusiViesti("pelaa käyttäen alla olevia komentopainikkeita");
+        } else if (!peli.ykkoskasiValmis() || (peli.splitattu() && !peli.splitKasiValmis())) {
             if (e.getSource() == hit) {
                 peli.hit();
             } else if (e.getSource() == stand) {
                 peli.stand();
             } else if (e.getSource() == tuplaus) {
                 peli.tuplaa();
+            } else if (e.getSource() == split && !peli.splitattu()) {
+                peli.split();
             }
             pvlista.paivita();
         } else if (peli.jaaJakajalle()) {
             pvlista.paivita();
         } else if (!peli.valmisAlkujakoon()){
-            viesti.setText(peli.resolve());
+            viesti.uusiViesti(peli.resolve(false));
+            if(peli.splitattu()) {
+                viesti.uusiViesti(peli.resolve(true));
+            }
             peli.setValmisAlkujakoon(true);
         } else {
             peli.tyhjaaKadet();
             peli.setPanos(0);
             pvlista.paivita();
-            viesti.setText("Aseta panos ja paina komentonappulaa");
+            viesti.uusiViesti("Aseta panos ja paina komentonappulaa");
         }
     }
     

@@ -115,7 +115,7 @@ public class Blackjack {
     /**
      * Mikäli kädessä on pari, jakaa kortit erillisiin käsiin ja jakaa kumpaankin kortin
      */
-    private void split() {
+    public void split() {
         if (pelaaja.ekaVuoro() && !splitattu) {
             ArrayList<Kortti> kortit = pelaaja.getCards();
             Kortti kortti1 = kortit.get(0);
@@ -245,6 +245,18 @@ public class Blackjack {
     
     public void setValmisAlkujakoon(boolean b) {
         valmisAlkujakoon = b;
+    }
+    
+    public boolean ykkoskasiValmis() {
+        return pelaaja.getValmis();
+    }
+    
+    public boolean splitKasiValmis() {
+        return split.getValmis();
+    }
+    
+    public boolean splitattu() {
+        return splitattu;
     }
     
 }

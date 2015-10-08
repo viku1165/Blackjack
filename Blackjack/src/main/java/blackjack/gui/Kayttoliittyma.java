@@ -2,14 +2,12 @@
 package blackjack.gui;
 
 import blackjack.logiikka.Blackjack;
-import blackjack.tekstikayttoliittyma.Tekstikayttoliittyma;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.Container;
 import java.awt.GridLayout;
 import javax.swing.JButton;
 import javax.swing.JFrame;
-import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.WindowConstants;
@@ -20,7 +18,7 @@ public class Kayttoliittyma implements Runnable {
     private JFrame frame;
     private Blackjack peli;
     private Paivityslista paivityslista;
-    private JTextField viestikentta;
+    private Viestikentta viestikentta;
     
     public Kayttoliittyma(Blackjack bj) {
         peli = bj;
@@ -55,7 +53,8 @@ public class Kayttoliittyma implements Runnable {
         JButton dd = new JButton("Double down");
         panel.add(dd);
         JButton splittaa = new JButton("Split");
-        KomentoKuuntelija kk = new KomentoKuuntelija(peli, hit, stand, dd, paivityslista,viestikentta);
+        panel.add(splittaa);        
+        KomentoKuuntelija kk = new KomentoKuuntelija(peli, hit, stand, dd,splittaa, paivityslista,viestikentta);
         hit.addActionListener(kk);
         stand.addActionListener(kk);
         dd.addActionListener(kk);
@@ -91,8 +90,7 @@ public class Kayttoliittyma implements Runnable {
         KorttiKentta kortit = new KorttiKentta(peli);
         panel.add(kortit);
         paivityslista.lisaa(kortit);
-        viestikentta = new JTextField("Aseta panos ja paina komentonappulaa");
-        viestikentta.setEditable(false);
+        viestikentta = new Viestikentta();
         panel.add(viestikentta);
         return panel;
     }
