@@ -15,7 +15,7 @@ public class Kasi {
     
     /**
      * Luo uuden, tyhjän käden
-     * @param int Käden panos
+     * 
      */
     public Kasi() {
         cards = new ArrayList<>();
@@ -78,11 +78,11 @@ public class Kasi {
     
     @Override
     public String toString() {
-        String tulos = cards.get(0).toString();
+        StringBuilder tulos = new StringBuilder(cards.get(0).toString());
         for (int i = 1; i < cards.size(); i++) {
-            tulos = tulos + "   " + cards.get(i).toString();
+            tulos.append("   " + cards.get(i).toString());
         }
-        return tulos;
+        return tulos.toString();
     }
     
     /**
@@ -116,8 +116,12 @@ public class Kasi {
         valmis = true;
     }
     
-    public boolean getValmis() {
+    public boolean valmis() {
         return valmis;
+    }
+    
+    public void setPanos(int x) {
+        panos = x;
     }
     
     public int getPanos() {

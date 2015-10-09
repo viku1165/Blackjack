@@ -31,6 +31,13 @@ public class BlackjackTest {
     }
     
     @Test
+    public void panoksenAsettaminenToimii() {
+        bj.setPanos(1);
+        int panos = bj.getPelaajanKasi().getPanos();
+        assertEquals(1, panos);
+    }
+    
+    @Test
     public void hitJakaaKortin() {
         bj.hit();
         Kasi pelaaja = bj.getPelaajanKasi();
@@ -39,7 +46,7 @@ public class BlackjackTest {
     
     @Test
     public void hitYli21PysayttaaKaden() {
-        while(bj.kasiKesken()) {
+        while(!bj.getPelaajanKasi().bust()) {
             assertTrue(bj.getPelaajanKasi().getValue() < 22);
             bj.hit();
         }
@@ -49,13 +56,13 @@ public class BlackjackTest {
     @Test
     public void standPysayttaaKaden() {
         bj.stand();
-        assertTrue(!bj.kasiKesken());
+        assertTrue(bj.getPelaajanKasi().valmis());
     }
     
     @Test
     public void tuplausPysayttaaKaden() {
         bj.tuplaa();
-        assertTrue(!bj.kasiKesken());
+        assertTrue(bj.getPelaajanKasi().valmis());
     }
     
     @Test
@@ -69,7 +76,7 @@ public class BlackjackTest {
     public void tuplausTuplaaPanoksen() {
         bj.setPanos(1);
         bj.tuplaa();
-        int panos = bj.getPanos();
+        int panos = bj.getPelaajanKasi().getPanos();
         assertEquals(2, panos);
     }
     
@@ -82,16 +89,11 @@ public class BlackjackTest {
         assertEquals(0, jakaja.getCards().size());
     }
     
-    @Test
-    public void kasienTyhjennyksenJalkeenOnEkaVuoro() {
-        bj.tyhjaaKadet();
-        assertTrue(bj.getEkaVuoro());
-    }
     
     @Test
     public void kasienTyhjennyksenJalkeenKasiKesken() {
         bj.tyhjaaKadet();
-        assertTrue(bj.kasiKesken());
+        assertTrue(!bj.getPelaajanKasi().valmis());
     }
     
     @Test
@@ -113,7 +115,7 @@ public class BlackjackTest {
         bj.setJakajanKasi(jakaja);
         bj.setPelaajanKasi(pelaaja);
         
-        assertEquals("tasapeli", bj.resolve());
+        assertEquals("tasapeli", bj.resolve(false));
     }
     
     @Test
@@ -132,7 +134,7 @@ public class BlackjackTest {
         bj.setJakajanKasi(jakaja);
         bj.setPelaajanKasi(pelaaja);
         
-        assertEquals("tasapeli", bj.resolve());
+        assertEquals("tasapeli", bj.resolve(false));
     }
     
     @Test
@@ -153,7 +155,7 @@ public class BlackjackTest {
         bj.setJakajanKasi(jakaja);
         bj.setPelaajanKasi(pelaaja);
         
-        assertEquals("pelaaja voittaa", bj.resolve());
+        assertEquals("pelaaja voittaa", bj.resolve(false));
     }
     
     @Test
@@ -173,7 +175,7 @@ public class BlackjackTest {
         bj.setJakajanKasi(jakaja);
         bj.setPelaajanKasi(pelaaja);
         
-        assertEquals("pelaaja voittaa", bj.resolve());
+        assertEquals("pelaaja voittaa", bj.resolve(false));
     }
     
     @Test
@@ -193,7 +195,7 @@ public class BlackjackTest {
         bj.setJakajanKasi(jakaja);
         bj.setPelaajanKasi(pelaaja);
         
-        assertEquals("jakaja voittaa", bj.resolve());
+        assertEquals("jakaja voittaa", bj.resolve(false));
     }
     
     //Testaamattomia resolve-tapauksia: (koska toteutustapa voi muuttua)

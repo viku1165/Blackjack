@@ -2,15 +2,8 @@
 
 package blackjack.logiikka;
 
-import blackjack.logiikka.Pakka;
 import java.util.ArrayList;
-import blackjack.logiikka.Kortti;
-import blackjack.logiikka.Kasi;
-import blackjack.logiikka.Maa;
-import org.junit.After;
-import org.junit.AfterClass;
 import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
@@ -104,6 +97,45 @@ public class KasiTest {
         kasi.jaa(assa2);
         int arvo = kasi.getValue();
         assertEquals(12, arvo);
+    }
+    
+    @Test
+    public void kasiValmistuu() {
+        kasi.valmista();
+        assertTrue(kasi.valmis());
+    }
+    
+    @Test
+    public void tuplausToimii() {
+        kasi.setPanos(1);
+        kasi.tuplaaPanos();
+        assertEquals(2, kasi.getPanos());
+    }
+   
+    @Test
+    public void bustToimii() {
+        Kortti kymppi1 = new Kortti(1, 10);
+        Kortti kymppi2 = new Kortti(2,10);
+        Kortti kax = new Kortti(1,2);
+        
+        kasi.jaa(kax);
+        kasi.jaa(kymppi1);
+        kasi.jaa(kymppi2);
+        
+        assertTrue(kasi.bust());
+    }
+    
+    @Test
+    public void bustToimii2() {
+        Kortti kymppi = new Kortti(1, 10);
+        Kortti ysi = new Kortti(2,9);
+        Kortti kax = new Kortti(1,2);
+        
+        kasi.jaa(kax);
+        kasi.jaa(ysi);
+        kasi.jaa(kymppi);
+        
+        assertTrue(!kasi.bust());
     }
     
 }

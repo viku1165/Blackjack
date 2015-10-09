@@ -31,11 +31,12 @@ public class EnterKuuntelija implements KeyListener {
     public void keyPressed(KeyEvent e) {
 
         if (e.getKeyCode() == KeyEvent.VK_ENTER) {
-            if (peli.getPanos() == 0) {
-                peli.setPanos(Integer.parseInt(kentta.getText()));
+            if (peli.getPelaajanKasi().getPanos() == 0) {
+                int panos = Integer.parseInt(kentta.getText());
+                peli.setPanos(panos);
                 kentta.setText("");
                 pvlista.paivita();
-                viesti.uusiViesti("panos asetettu, paina mitä paniketta jakaaksesi kortit");
+                viesti.uusiViesti("panokseksi asetettu " + peli.getPelaajanKasi().getPanos() + ", paina mitä tahansa paniketta jakaaksesi kortit");
             } else if (peli.kadetTyhjat()) {
                 peli.alkujako();
                 pvlista.paivita();

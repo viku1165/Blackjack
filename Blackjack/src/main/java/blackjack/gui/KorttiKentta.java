@@ -17,7 +17,7 @@ public class KorttiKentta extends JLabel implements Paivitettava{
     
     public void paivita() {
         String text = peli.toString();
-        super.setText(convert(peli.toString()));
+        super.setText(convert(text));
     }
     
     private String convert(String orig) {

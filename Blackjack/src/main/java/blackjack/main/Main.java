@@ -15,10 +15,6 @@ public class Main {
         Kayttoliittyma kl = new Kayttoliittyma(bj);
         SwingUtilities.invokeLater(kl);
         
-//        Tekstikayttoliittyma       
-//        Blackjack bj = new Blackjack(6);
-//        Tekstikayttoliittyma tkl = new Tekstikayttoliittyma(bj);
-//        tkl.pelaa();
     }
     
 }

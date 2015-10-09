@@ -11,10 +11,10 @@ public class Blackjack {
     private Kasi jakaja;
     private Kasi pelaaja;
     private Kasi split;
-    private int panos;
     private int voitot;
     private boolean valmisAlkujakoon;
     private boolean splitattu;
+    private int kierroksiaPelattu;
     
     /**
      * Luo Blackjack-pelin, jossa haluttu määrä pakkoja
@@ -30,17 +30,13 @@ public class Blackjack {
         jakaja = new Kasi();
         pelaaja = new Kasi();
         voitot = 0;
-        panos = 0;
         valmisAlkujakoon = false;
         splitattu = false;
+        kierroksiaPelattu = 0;
     }
     
     public void setPanos(int x) {
-        panos = x;
-    }
-    
-    public int getPanos() {
-        return panos;
+        pelaaja.setPanos(x);
     }
     
     public Kasi getJakajanKasi() {
@@ -55,7 +51,6 @@ public class Blackjack {
      * Suorittaa käden alkujaon, eli jakaa pelaajalle ja jakajalle kaksi korttia
      */
     public void alkujako() {
-        tyhjaaKadet();
         pelaaja.jaa(deck);
         jakaja.jaa(deck);
         pelaaja.jaa(deck);
@@ -67,13 +62,13 @@ public class Blackjack {
      * 21, on käsi pelaajan osalta kesken.
      */
     public void hit() {
-        if(!pelaaja.getValmis()) {
+        if(!pelaaja.valmis()) {
             pelaaja.jaa(deck);
             if(pelaaja.bust()){
                 pelaaja.valmista();
             }
         } else if (splitattu) {
-            if(!split.getValmis()) {
+            if(!split.valmis()) {
                 split.jaa(deck);
                 if (split.bust()) {
                     split.valmista();
@@ -86,7 +81,7 @@ public class Blackjack {
      * Lopettaa käden pelaajan osalta, kun pelaaja ei halua lisäkortteja.
      */
     public void stand() {
-        if (!pelaaja.getValmis()) {
+        if (!pelaaja.valmis()) {
             pelaaja.valmista(); 
         } else if (splitattu) {
             split.valmista();
@@ -99,12 +94,12 @@ public class Blackjack {
      * Käytettävissä vain pelaajan ensimmäisellä vuorolla.
      */
     public void tuplaa() {
-        if (pelaaja.ekaVuoro() && !pelaaja.getValmis()){
+        if (pelaaja.ekaVuoro() && !pelaaja.valmis()){
             pelaaja.tuplaaPanos();
             pelaaja.jaa(deck);
             pelaaja.valmista();
         } else if (splitattu) {
-            if(split.ekaVuoro() && !split.getValmis()) {
+            if(split.ekaVuoro() && !split.valmis()) {
                 split.tuplaaPanos();
                 split.jaa(deck);
                 split.valmista();
@@ -216,15 +211,22 @@ public class Blackjack {
     public String toString() {
         if (!pelaaja.tyhja()) {
             StringBuilder viesti = new StringBuilder("Jakaja:\n");
-            if(!pelaaja.getValmis()) {
+            if(!pelaaja.valmis()) {
                 viesti.append(jakaja.toStringBlind() + "\n");
             } else {
                 viesti.append(jakaja.toString() + "\n");
             }       
     //        System.out.println("summa " + peli.getJakajanKasi().getValue());
             viesti.append("Pelaaja:\n");
+//            viesti.append("Panos " + pelaaja.getPanos() + "\n");
+            viesti.append("panos " + pelaaja.getPanos() + "\n");
             viesti.append(pelaaja);
     //        System.out.println("summa " + peli.getPelaajanKasi().getValue());
+            if(splitattu) {
+                viesti.append("Panos " + split.getPanos() + "\n");
+                viesti.append(split);
+            }
+            
             return viesti.toString();
         }
         return "";
@@ -248,11 +250,11 @@ public class Blackjack {
     }
     
     public boolean ykkoskasiValmis() {
-        return pelaaja.getValmis();
+        return pelaaja.valmis();
     }
     
     public boolean splitKasiValmis() {
-        return split.getValmis();
+        return split.valmis();
     }
     
     public boolean splitattu() {

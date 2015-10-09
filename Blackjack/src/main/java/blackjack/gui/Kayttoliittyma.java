@@ -67,7 +67,7 @@ public class Kayttoliittyma implements Runnable {
     
     private JPanel voitotJaPanokset() {
         
-        JPanel panel = new JPanel(new GridLayout(1,3));
+        JPanel panel = new JPanel(new GridLayout(1,2));
         Voittokentta voitot = new Voittokentta(peli);
         panel.add(voitot);
         paivityslista.lisaa(voitot);
@@ -75,9 +75,6 @@ public class Kayttoliittyma implements Runnable {
         JTextField panossyotto = new JTextField();
         panel.add(panossyotto);
         
-        Panoskentta panostulostus = new Panoskentta(peli);
-        panel.add(panostulostus);
-        paivityslista.lisaa(panostulostus);
 
         EnterKuuntelija ek = new EnterKuuntelija(panossyotto,peli,viestikentta,paivityslista);
         panossyotto.addKeyListener(ek);
