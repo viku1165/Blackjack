@@ -132,4 +132,8 @@ public class Kasi {
         panos *= 2;
     }
     
+    public boolean blackjack() {
+        return ekaVuoro() && getValue() == 21;
+    }
+    
 }

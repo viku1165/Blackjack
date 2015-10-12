@@ -20,6 +20,10 @@ public class BlackjackTest {
     public void setUp() {
         bj = new Blackjack(6);
         bj.alkujako();
+        while(bj.getPelaajanKasi().blackjack()) {
+            bj.tyhjaaKadet();
+            bj.alkujako();
+        }
     }
     
     @Test
@@ -159,6 +163,25 @@ public class BlackjackTest {
     }
     
     @Test
+    public void resolveMaksaaVoitot() {
+        Kortti kymppi1 = new Kortti(1, 10);
+        Kortti kymppi2 = new Kortti(2,10);
+        Kortti kax = new Kortti(1,2);
+        
+        Kasi pelaaja = new Kasi();
+        Kasi jakaja = new Kasi();
+        
+        pelaaja.jaa(kymppi1);
+        pelaaja.jaa(kymppi2);
+        jakaja.jaa(kymppi1);
+        jakaja.jaa(kymppi2);
+        jakaja.jaa(kax);
+        
+        bj.setJakajanKasi(jakaja);
+        bj.setPelaajanKasi(pelaaja);
+    }
+    
+    @Test
     public void resolvePelaajaLahempana21() {
         Kortti kymppi1 = new Kortti(1, 10);
         Kortti kymppi2 = new Kortti(2,10);
@@ -175,7 +198,10 @@ public class BlackjackTest {
         bj.setJakajanKasi(jakaja);
         bj.setPelaajanKasi(pelaaja);
         
-        assertEquals("pelaaja voittaa", bj.resolve(false));
+        bj.setPanos(1);
+        bj.resolve(false);
+        
+        assertEquals(1, bj.getVoitot(), 0.001);
     }
     
     @Test
@@ -198,6 +224,60 @@ public class BlackjackTest {
         assertEquals("jakaja voittaa", bj.resolve(false));
     }
     
+    @Test
+    public void resolveVeloittaaTappiot(){
+        Kortti kymppi1 = new Kortti(1, 10);
+        Kortti kymppi2 = new Kortti(2,10);
+        Kortti ysi = new Kortti(3,9);
+        
+        Kasi pelaaja = new Kasi();
+        Kasi jakaja = new Kasi();
+        
+        pelaaja.jaa(kymppi1);
+        pelaaja.jaa(ysi);
+        jakaja.jaa(kymppi1);
+        jakaja.jaa(kymppi2);
+        
+        bj.setJakajanKasi(jakaja);
+        bj.setPelaajanKasi(pelaaja);
+        
+        bj.setPanos(1);
+        bj.resolve(false);
+        
+        assertEquals(-1, bj.getVoitot(), .001);
+    }           
+    
+    private void jaaPelaajalleBlackjack() {
+        Kortti Assa = new Kortti(3,1);
+        Kortti kymppi1 = new Kortti(1, 10);
+        Kortti kymppi2 = new Kortti(2,10);
+        
+        Kasi pelaaja = new Kasi();
+        Kasi jakaja = new Kasi();
+        
+        pelaaja.jaa(Assa);
+        pelaaja.jaa(kymppi1);
+        jakaja.jaa(kymppi1);
+        jakaja.jaa(kymppi2);
+        
+        bj.setJakajanKasi(jakaja);
+        bj.setPelaajanKasi(pelaaja);
+    }
+    
+    @Test
+    public void resolvePelaajaVoittaaBlackjackilla() {
+        jaaPelaajalleBlackjack();
+        
+        assertEquals("pelaaja voittaa Blackjackilla", bj.resolve(false));
+    }
+    
+    @Test
+    public void resolveBlackjackPalauttaa3per2() {
+        jaaPelaajalleBlackjack();
+        bj.setPanos(2);
+        bj.resolve(false);
+        assertEquals(3, bj.getVoitot(),0.001);
+    }
     //Testaamattomia resolve-tapauksia: (koska toteutustapa voi muuttua)
     //  -pelaaja bustaa, jakaja ei
 }

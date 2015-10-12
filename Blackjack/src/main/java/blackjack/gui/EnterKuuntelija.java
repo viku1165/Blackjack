@@ -32,7 +32,17 @@ public class EnterKuuntelija implements KeyListener {
 
         if (e.getKeyCode() == KeyEvent.VK_ENTER) {
             if (peli.getPelaajanKasi().getPanos() == 0) {
-                int panos = Integer.parseInt(kentta.getText());
+                int panos = 0;
+                try {
+                    panos = Integer.parseInt(kentta.getText());
+                } catch (Exception x) {
+                    viesti.uusiViesti("Panoksen tulee olla positiivinen kokonaisluku");
+                    return;
+                }
+                if (panos <= 0) {
+                    viesti.uusiViesti("Panoksen tulee olla positiivinen kokonaisluku");
+                    return;
+                }
                 peli.setPanos(panos);
                 kentta.setText("");
                 pvlista.paivita();

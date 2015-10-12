@@ -11,7 +11,7 @@ public class Blackjack {
     private Kasi jakaja;
     private Kasi pelaaja;
     private Kasi split;
-    private int voitot;
+    private double voitot;
     private boolean valmisAlkujakoon;
     private boolean splitattu;
     private int kierroksiaPelattu;
@@ -55,8 +55,16 @@ public class Blackjack {
         jakaja.jaa(deck);
         pelaaja.jaa(deck);
         jakaja.jaa(deck);
+        
+        tarkistaPelaajanBlackjack();
     }
-       
+    
+    public void tarkistaPelaajanBlackjack() {
+        if (pelaaja.blackjack()) {
+            pelaaja.valmista();
+        }
+    }
+    
     /**
      * Jakaa pelaajalle yhdenkortin lisää. Jos käden arvo ylittää tämän jälkeen
      * 21, on käsi pelaajan osalta kesken.
@@ -158,27 +166,45 @@ public class Blackjack {
             kasiteltava = split;
         }
         
+        int panos = kasiteltava.getPanos();
+        
         if(kasiteltava.getValue() > 21) {
             if (jakaja.getValue() > 21) {
                 return "tasapeli";
             } else {
-                voitot -= kasiteltava.getPanos();
-                return "jakaja voittaa";
+                return havia(panos);
             }
         }
+        
+        if (kasiteltava.blackjack()) {
+            if (jakaja.blackjack()) {
+                return "tasapeli";
+            }
+            voitot += 1.5 * kasiteltava.getPanos();
+            return "pelaaja voittaa Blackjackilla";
+        }
+        
         if (jakaja.getValue() > 21) {
-            voitot += kasiteltava.getPanos();
-            return "pelaaja voittaa";
+            return voita(panos);
         }
         if (jakaja.getValue() > kasiteltava.getValue() ) {
-            voitot -= kasiteltava.getPanos();
-            return "jakaja voittaa";
+            return havia(panos);
         }
         if (jakaja.getValue() == kasiteltava.getValue() ) {
             return "tasapeli";
         }
-        voitot += kasiteltava.getPanos();
+        
+        return voita(panos);
+    }
+    
+    private String voita(int panos) {
+        voitot += panos;
         return "pelaaja voittaa";
+    }
+    
+    private String havia(int panos) {
+        voitot -= panos;
+        return "jakaja voittaa";
     }
     
     //käsien setterit resolve():n testaamiseen
@@ -202,7 +228,7 @@ public class Blackjack {
         splitattu = false;
     }
     
-    public int getVoitot() {
+    public double getVoitot() {
         return voitot;
     }
 
@@ -260,5 +286,7 @@ public class Blackjack {
     public boolean splitattu() {
         return splitattu;
     }
+    
+
     
 }

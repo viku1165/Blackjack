@@ -40,7 +40,9 @@ public class Kayttoliittyma implements Runnable {
     private void luoKomponentit(Container cont) {
         paivityslista = new Paivityslista();
         cont.add(tulostusKentat());
-        cont.add(voitotJaPanokset(), BorderLayout.NORTH);
+        Voittokentta voitot = new Voittokentta(peli);
+        paivityslista.lisaa(voitot);
+        cont.add(voitot, BorderLayout.NORTH);
         cont.add(luoNapit(),BorderLayout.SOUTH);
     }
         
@@ -65,22 +67,7 @@ public class Kayttoliittyma implements Runnable {
         return frame;
     }
     
-    private JPanel voitotJaPanokset() {
-        
-        JPanel panel = new JPanel(new GridLayout(1,2));
-        Voittokentta voitot = new Voittokentta(peli);
-        panel.add(voitot);
-        paivityslista.lisaa(voitot);
-
-        JTextField panossyotto = new JTextField();
-        panel.add(panossyotto);
-        
-
-        EnterKuuntelija ek = new EnterKuuntelija(panossyotto,peli,viestikentta,paivityslista);
-        panossyotto.addKeyListener(ek);
-        
-        return panel;
-    }
+ 
     
     private JPanel tulostusKentat() {
         JPanel panel = new JPanel(new GridLayout(2,1));
@@ -88,6 +75,13 @@ public class Kayttoliittyma implements Runnable {
         panel.add(kortit);
         paivityslista.lisaa(kortit);
         viestikentta = new Viestikentta();
+        
+        JTextField panossyotto = new JTextField(60);
+        viestikentta.add(panossyotto, BorderLayout.SOUTH);
+        
+        EnterKuuntelija ek = new EnterKuuntelija(panossyotto,peli,viestikentta,paivityslista);
+        panossyotto.addKeyListener(ek);
+        
         panel.add(viestikentta);
         return panel;
     }
