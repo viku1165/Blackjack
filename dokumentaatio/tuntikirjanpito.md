@@ -29,3 +29,7 @@
 7.10. n.1h splittaamista
 
 8.10. n.2h splittaamisen implementointia, käyttöliittymän muokkausta
+
+9.10. 3h hiomista ym. säätöä
+
+12.10. 2h Lisätty väärien panossyöttöjen käsittely, Blackjackista suurempi voitto ja uudistetty käyttöliittymää
