@@ -33,3 +33,5 @@
 9.10. 3h hiomista ym. säätöä
 
 12.10. 2h Lisätty väärien panossyöttöjen käsittely, Blackjackista suurempi voitto ja uudistetty käyttöliittymää
+
+13.10. 3.5h Yleistä säätöä, uusia testejä, Peli uudelleensekoittaa vähiin käyvän pakan ym.
