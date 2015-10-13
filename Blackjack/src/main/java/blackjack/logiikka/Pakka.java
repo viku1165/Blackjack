@@ -11,6 +11,7 @@ import java.util.Collections;
 
 public class Pakka {
     Stack<Kortti> pakka;
+    int alkukoko;
     
     public Pakka() {
         pakka = new Stack<Kortti>();
@@ -20,6 +21,7 @@ public class Pakka {
             }
         }
         this.sekoita();
+        alkukoko = 52;
     }
     
     /**
@@ -72,6 +74,17 @@ public class Pakka {
             pakka.push(k);
         }
         sekoita();
+        alkukoko += 52;
+    }
+    
+    /**
+     * Kertoo, onko pakasta jäljellä alle parametrinä annettu osuus alkuperäiseen kokoon nähden.
+     * @param lim osuus, väliltä (0,1)
+     * @return onko pakasta jäljellä vähemmän kuin osuuden verran
+     */
+    public boolean jaljellaAlle(double lim) {
+        double jaljella = (double)koko() / alkukoko;
+        return (jaljella < lim);
     }
     
 }

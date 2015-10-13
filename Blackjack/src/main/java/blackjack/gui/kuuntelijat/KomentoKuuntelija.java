@@ -1,13 +1,19 @@
 
 
-package blackjack.gui;
+package blackjack.gui.kuuntelijat;
 
+import blackjack.gui.komponentit.Viestikentta;
+import blackjack.gui.komponentit.Paivityslista;
 import blackjack.logiikka.Blackjack;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JTextField;
 
+/**
+ * ActionListener-rajapinnan toteuttava luokka, joka käsittelee käyttöliittymän
+ * komentopainikkeiden painallukset
+ */
 public class KomentoKuuntelija implements ActionListener {
     
     private Blackjack peli;
@@ -31,6 +37,10 @@ public class KomentoKuuntelija implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
 
+        if (!peli.panosAsetettu()) {
+            return;
+        }
+        
         if (peli.kadetTyhjat()) {
             peli.alkujako();
             pvlista.paivita();

@@ -1,14 +1,20 @@
 
-package blackjack.gui;
+package blackjack.gui.komponentit;
 
 import blackjack.logiikka.Blackjack;
 import javax.swing.JLabel;
 
-
+/**
+ * Päivitettävä JLabel, joka näyttää pelin voitot.
+ */
 public class Voittokentta extends JLabel implements Paivitettava {
 
     private Blackjack peli;
     
+    /**
+     * Luo uuden Voittokentän.
+     * @param bj peli, jonka voitoista pidetään kirjaa.
+     */
     public Voittokentta(Blackjack bj) {
         super();
         peli = bj;

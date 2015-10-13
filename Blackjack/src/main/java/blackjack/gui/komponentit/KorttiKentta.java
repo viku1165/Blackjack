@@ -1,15 +1,22 @@
 
 
-package blackjack.gui;
+package blackjack.gui.komponentit;
 
 import blackjack.logiikka.Blackjack;
 import javax.swing.JLabel;
 
-
+/**
+ * Kenttä, johon tulostetaan Blackjack-pelin käsien tilanne.
+ * @author viku
+ */
 public class KorttiKentta extends JLabel implements Paivitettava{
     
     private Blackjack peli;
     
+    /**
+     * Luo korttikentän
+     * @param bj pelim josta pidetään kirjaa.
+     */
     public KorttiKentta(Blackjack bj) {
         super();
         peli = bj;

@@ -1,6 +1,12 @@
 
 package blackjack.gui;
 
+import blackjack.gui.kuuntelijat.KomentoKuuntelija;
+import blackjack.gui.kuuntelijat.EnterKuuntelija;
+import blackjack.gui.komponentit.Viestikentta;
+import blackjack.gui.komponentit.Paivityslista;
+import blackjack.gui.komponentit.KorttiKentta;
+import blackjack.gui.komponentit.Voittokentta;
 import blackjack.logiikka.Blackjack;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
@@ -12,6 +18,9 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.WindowConstants;
 
+/**
+ * Pelin käyttöliittymä
+ */
 
 public class Kayttoliittyma implements Runnable {
     
@@ -63,11 +72,6 @@ public class Kayttoliittyma implements Runnable {
         return panel;
     }
     
-    public JFrame getFrame() {
-        return frame;
-    }
-    
- 
     
     private JPanel tulostusKentat() {
         JPanel panel = new JPanel(new GridLayout(2,1));
@@ -76,8 +80,8 @@ public class Kayttoliittyma implements Runnable {
         paivityslista.lisaa(kortit);
         viestikentta = new Viestikentta();
         
-        JTextField panossyotto = new JTextField(60);
-        viestikentta.add(panossyotto, BorderLayout.SOUTH);
+        JTextField panossyotto = new JTextField(61);
+        viestikentta.add(panossyotto,BorderLayout.SOUTH);
         
         EnterKuuntelija ek = new EnterKuuntelija(panossyotto,peli,viestikentta,paivityslista);
         panossyotto.addKeyListener(ek);
@@ -85,6 +89,7 @@ public class Kayttoliittyma implements Runnable {
         panel.add(viestikentta);
         return panel;
     }
+    
     
 
 } 

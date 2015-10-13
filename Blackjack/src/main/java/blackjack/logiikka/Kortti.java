@@ -56,6 +56,15 @@ public class Kortti {
         if (arvo == 1) {
             return maa + " A";
         }
+        if (arvo == 11) {
+            return maa + " J";
+        }
+        if (arvo == 12) {
+            return maa + " Q";
+        }
+        if (arvo == 13) {
+            return maa + " K";
+        }
         return maa + " " + arvo;
     }
 }

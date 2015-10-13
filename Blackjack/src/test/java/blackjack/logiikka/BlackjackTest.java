@@ -4,6 +4,7 @@ package blackjack.logiikka;
 
 import blackjack.logiikka.Kasi;
 import blackjack.logiikka.Blackjack;
+import java.util.ArrayList;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -46,6 +47,19 @@ public class BlackjackTest {
         bj.hit();
         Kasi pelaaja = bj.getPelaajanKasi();
         assertEquals(3, pelaaja.getCards().size());
+    }
+    
+    //Testaa osittain myös Pakka-luokan juttuja
+    @Test
+    public void pakkaSekoittuuUudelleen() {
+        bj = new Blackjack(1);
+        Pakka deck = bj.getPakka();
+        for (int i = 0; i < 35; i++) {
+            deck.nosta();
+        }
+        bj.alkujako();
+        deck = bj.getPakka();
+        assertEquals(48, deck.koko());
     }
     
     @Test
@@ -99,6 +113,8 @@ public class BlackjackTest {
         bj.tyhjaaKadet();
         assertTrue(!bj.getPelaajanKasi().valmis());
     }
+    
+    //resolvea
     
     @Test
     public void resolveAntaaTasapelinKunMolemmatYli21() {
@@ -280,4 +296,86 @@ public class BlackjackTest {
     }
     //Testaamattomia resolve-tapauksia: (koska toteutustapa voi muuttua)
     //  -pelaaja bustaa, jakaja ei
+    
+    //splittiä
+    
+    private void jaaPari() {
+        Kortti eka  = new Kortti(1,4);
+        Kortti toka = new Kortti(2,4);
+        
+        Kasi kasi = new Kasi();
+        kasi.jaa(eka);
+        kasi.jaa(toka);
+        bj.setPelaajanKasi(kasi);
+    }
+    
+    @Test
+    public void splitLuoUudenKaden() {
+        jaaPari();
+        
+        bj.split();
+        Kasi kasi = bj.getSplitKasi();
+        
+        assertNotNull(kasi);
+    }
+    
+    @Test
+    public void splitAsettaaSplitattuTrue() {
+        jaaPari();
+        
+        bj.split();
+        
+        assertTrue(bj.splitattu());
+    }
+    
+    @Test
+    public void splitEiToimiIlmanParia() {
+        ArrayList<Kortti> kortit = bj.getPelaajanKasi().getCards();
+        while (kortit.get(0).bjArvo() == kortit.get(1).bjArvo()) {
+            setUp();
+        }
+        
+        bj.split();
+        
+        assertTrue(!bj.splitattu());
+    }
+    
+    @Test
+    public void splitEiSplittaaEkanVuoronJalkeen() {
+        jaaPari();
+        bj.hit();
+        bj.split();
+        assertTrue(!bj.splitattu());
+    }
+    
+    @Test
+    public void splitinJalkeenHitEkaanKateen() {
+        jaaPari();
+        bj.split();
+        bj.hit();
+        Kasi kasi = bj.getPelaajanKasi();
+        assertEquals(3, kasi.getCards().size());
+    }
+    
+    @Test
+    public void splitinJalkeenTokaanKateenHit() {
+        jaaPari();
+        bj.split();
+        bj.getPelaajanKasi().valmista();
+        bj.hit();
+        Kasi kasi = bj.getSplitKasi();
+        assertEquals(3, kasi.getCards().size());
+    }
+    
+    @Test 
+    public void tuplausTuplaaSplitinPanoksen() {
+        jaaPari();
+        bj.split();
+        bj.getPelaajanKasi().valmista();
+        Kasi kasi = bj.getSplitKasi();
+        kasi.setPanos(1);
+        bj.tuplaa();
+        assertEquals(2, kasi.getPanos());
+    }
+    
 }

@@ -1,6 +1,6 @@
 
 
-package blackjack.gui;
+package blackjack.gui.komponentit;
 
 
 import java.awt.BorderLayout;
@@ -10,7 +10,10 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.ScrollPaneConstants;
 
-
+/**
+ * JPanel-ilmentymä, joka sisältää scrollattavan tekstialueen, johon voi lisätä
+ * riveittäisiä viestejä.
+ */
 public class Viestikentta extends JPanel {
     
     JTextArea viesti;
@@ -30,6 +33,10 @@ public class Viestikentta extends JPanel {
        this.add(scroll);
    }
    
+   /**
+    * Lisää viestikenttään uudelle riville parametrina annetun viestin
+    * @param str haluttu viesti
+    */
    public void uusiViesti(String str) {
        viesti.append("\n" + str);
    }

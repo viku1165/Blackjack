@@ -14,25 +14,28 @@ public class Blackjack {
     private double voitot;
     private boolean valmisAlkujakoon;
     private boolean splitattu;
-    private int kierroksiaPelattu;
+    private int pakkoja;
     
     /**
      * Luo Blackjack-pelin, jossa haluttu määrä pakkoja
      * @param pakkoja pelissä käytettävien pakkojen määrä
      */
     public Blackjack(int pakkoja) {
-        deck = new Pakka();
-        for (int i = 1; i < pakkoja; i++) {
-            Pakka uusi = new Pakka();
-            deck.yhdista(uusi);
-        }
-        
+        this.pakkoja = pakkoja;
+        alustaPakka(pakkoja);
         jakaja = new Kasi();
         pelaaja = new Kasi();
         voitot = 0;
         valmisAlkujakoon = false;
         splitattu = false;
-        kierroksiaPelattu = 0;
+    }
+    
+    private void alustaPakka(int n)  {
+        deck = new Pakka();
+        for (int i = 1; i < n; i++) {
+            Pakka uusi = new Pakka();
+            deck.yhdista(uusi);
+        }
     }
     
     public void setPanos(int x) {
@@ -47,10 +50,24 @@ public class Blackjack {
         return pelaaja;
     }
     
+    public Kasi getSplitKasi() {
+        return split;
+    }
+    
+    public Pakka getPakka() {
+        return deck;
+    }
+    
     /**
-     * Suorittaa käden alkujaon, eli jakaa pelaajalle ja jakajalle kaksi korttia
+     * Suorittaa käden alkujaon, eli jakaa pelaajalle ja jakajalle kaksi korttia.
+     * Ennen tätä tarkastaa, tuleeko pakka sekoittaa uudestaan. 
+     * Lisäksi tarkistaa, onko pelaajalla blackjack.
      */
     public void alkujako() {
+        if (deck.jaljellaAlle(0.33333)) {
+            alustaPakka(pakkoja);
+        }
+        
         pelaaja.jaa(deck);
         jakaja.jaa(deck);
         pelaaja.jaa(deck);
@@ -59,15 +76,15 @@ public class Blackjack {
         tarkistaPelaajanBlackjack();
     }
     
-    public void tarkistaPelaajanBlackjack() {
+    private void tarkistaPelaajanBlackjack() {
         if (pelaaja.blackjack()) {
             pelaaja.valmista();
         }
     }
     
     /**
-     * Jakaa pelaajalle yhdenkortin lisää. Jos käden arvo ylittää tämän jälkeen
-     * 21, on käsi pelaajan osalta kesken.
+     * Jakaa pelaajan aktiiviseen käteen yhden kortin lisää. Jos käden arvo ylittää tämän jälkeen
+     * 21, on käsi on valmis.
      */
     public void hit() {
         if(!pelaaja.valmis()) {
@@ -216,6 +233,10 @@ public class Blackjack {
         jakaja = kasi;
     }
     
+    public void setSplitKasi(Kasi kasi) {
+        split = kasi;
+    }
+    
     
     /**
      * Aloittaa uuden käden, eli tyhjää kädet ja nollaa pelitilannetta kuvaavat
@@ -280,6 +301,9 @@ public class Blackjack {
     }
     
     public boolean splitKasiValmis() {
+        if (!splitattu) {
+            return false;
+        }
         return split.valmis();
     }
     
@@ -287,6 +311,13 @@ public class Blackjack {
         return splitattu;
     }
     
-
+    /**
+     * Kertoo, onko pelaaja pelille (siis pelaajan alkuperäiselle kädelle)
+     * asetettu positiivinen panos.
+     * @return Onko panos positiivinen
+     */
+    public boolean panosAsetettu() {
+        return pelaaja.getPanos() > 0;
+    }
     
 }

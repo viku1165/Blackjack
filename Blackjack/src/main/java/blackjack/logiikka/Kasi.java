@@ -108,10 +108,20 @@ public class Kasi {
         return getValue() > 21;
     }
     
+    /**
+     * Kertoo, onko käteen jaettu lisäkortteja alkujaon jälkeen, siis onko
+     * korttien lukumäärä kaksi. Huom! metodi ei siis varsinaisesti kerro, onko
+     * kättä pelattu aiemmin, sillä passaamisen jälkeen metodi palauttaa edelleen
+     * true
+     * @return Kortteja kädessä = 2
+     */
     public boolean ekaVuoro() {
         return cards.size() == 2;
     }
     
+    /**
+     * Asettaa valmis = true
+     */
     public void valmista() {
         valmis = true;
     }
@@ -132,6 +142,10 @@ public class Kasi {
         panos *= 2;
     }
     
+    /**
+     * Kertoo, onko käsi blackjack (ässä ja mikä tahansa 10 arvoinen kortti)
+     * @return Onko käsi blackjack
+     */
     public boolean blackjack() {
         return ekaVuoro() && getValue() == 21;
     }
