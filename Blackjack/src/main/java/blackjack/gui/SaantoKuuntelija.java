@@ -13,25 +13,24 @@ import javax.swing.JSpinner;
 public class SaantoKuuntelija implements ActionListener {
     
     private JSpinner pakat;
-    private ButtonGroup tasapelit;
     private JRadioButton tasuritJakajalle;
-    private JFrame ikkuna;
+    private JFrame saantoikkuna;
     private Saannonluoja s;
+
     
-    public SaantoKuuntelija(JSpinner spinner, ButtonGroup bg1, JRadioButton jakajalle, JFrame frame, Saannonluoja sl) {
+    public SaantoKuuntelija(JSpinner spinner, JRadioButton jakajalle, JFrame saannot, Saannonluoja sl) {
         pakat = spinner;
-        tasapelit = bg1;
         tasuritJakajalle = jakajalle;
-        ikkuna = frame;
+        saantoikkuna = saannot;
         s = sl;
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
         int pakkoja = (Integer) pakat.getValue();
-        boolean jakajaVoittaa = tasapelit.getSelection().equals(tasuritJakajalle);
+        boolean jakajaVoittaa = tasuritJakajalle.isSelected();
         Saannot saannot = new Saannot(pakkoja, jakajaVoittaa);
         s.setSaannot(saannot);
-        ikkuna.dispose();
+        saantoikkuna.dispose();
     }
 }

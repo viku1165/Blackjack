@@ -11,8 +11,7 @@ public class Main {
 
     public static void main(String[] args) {
         // graafinen
-        Blackjack bj = new Blackjack(6);
-        Kayttoliittyma kl = new Kayttoliittyma(bj);
+        Kayttoliittyma kl = new Kayttoliittyma();
         SwingUtilities.invokeLater(kl);
         
     }

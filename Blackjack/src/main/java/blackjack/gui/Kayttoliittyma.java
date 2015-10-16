@@ -8,6 +8,7 @@ import blackjack.gui.komponentit.Paivityslista;
 import blackjack.gui.komponentit.KorttiKentta;
 import blackjack.gui.komponentit.Voittokentta;
 import blackjack.logiikka.Blackjack;
+import blackjack.logiikka.Saannot;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.Container;
@@ -29,11 +30,11 @@ public class Kayttoliittyma implements Runnable {
     private Paivityslista paivityslista;
     private Viestikentta viestikentta;
     
-    public Kayttoliittyma(Blackjack bj) {
-//        Saannonluoja s = new Saannonluoja();
-//        s.luoIkkuna();
-        
-        peli = bj;
+    public Kayttoliittyma() {
+        Saannonluoja s = new Saannonluoja();
+        s.luoIkkuna();
+        Saannot saannot = s.getSaannot();
+        peli = new Blackjack(saannot);
     }
     
     @Override

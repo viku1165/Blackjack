@@ -21,13 +21,13 @@ public class Saantoikkuna implements Runnable{
     private Saannonluoja sl;
     
     public Saantoikkuna(Saannonluoja s) {
-        s = sl;
+        sl = s;
     }
     
     @Override
     public void run() {
         frame = new JFrame("Blackjack");
-        frame.setPreferredSize(new Dimension(200,400));
+        frame.setPreferredSize(new Dimension(400,400));
         
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         
@@ -61,7 +61,7 @@ public class Saantoikkuna implements Runnable{
         JButton kayta = new JButton("Käytä");
         panel.add(kayta);
         
-        SaantoKuuntelija sk = new SaantoKuuntelija(spinner, jakajaNappulat, jakaja, frame, sl);
+        SaantoKuuntelija sk = new SaantoKuuntelija(spinner, jakaja, frame, sl);
         kayta.addActionListener(sk);
         
         c.add(panel);
