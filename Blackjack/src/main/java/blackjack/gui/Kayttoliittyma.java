@@ -30,6 +30,9 @@ public class Kayttoliittyma implements Runnable {
     private Viestikentta viestikentta;
     
     public Kayttoliittyma(Blackjack bj) {
+//        Saannonluoja s = new Saannonluoja();
+//        s.luoIkkuna();
+        
         peli = bj;
     }
     
