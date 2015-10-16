@@ -35,3 +35,5 @@
 12.10. 2h Lisätty väärien panossyöttöjen käsittely, Blackjackista suurempi voitto ja uudistetty käyttöliittymää
 
 13.10. 3.5h Yleistä säätöä, uusia testejä, Peli uudelleensekoittaa vähiin käyvän pakan ym.
+
+16.10. 3.5h Saannot ym.
