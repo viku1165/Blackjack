@@ -37,3 +37,7 @@
 13.10. 3.5h Yleistä säätöä, uusia testejä, Peli uudelleensekoittaa vähiin käyvän pakan ym.
 
 16.10. 3.5h Saannot ym.
+
+17.10. 1-2h hiomista
+
+18.10. n.5h viimeistely
