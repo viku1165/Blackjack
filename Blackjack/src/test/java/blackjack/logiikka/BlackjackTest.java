@@ -72,6 +72,14 @@ public class BlackjackTest {
     }
     
     @Test
+    public void hitYli21JalkeenKasiValmis() {
+        while(!bj.getPelaajanKasi().bust()) {
+            bj.hit();
+        }
+        assertTrue(bj.getPelaajanKasi().valmis());
+    }
+    
+    @Test
     public void standPysayttaaKaden() {
         bj.stand();
         assertTrue(bj.getPelaajanKasi().valmis());
@@ -294,8 +302,71 @@ public class BlackjackTest {
         bj.resolve(false);
         assertEquals(3, bj.getVoitot(),0.001);
     }
-    //Testaamattomia resolve-tapauksia: (koska toteutustapa voi muuttua)
-    //  -pelaaja bustaa, jakaja ei
+    
+    @Test
+    public void resolveJakajaVoittaaKunPelaajaBustaa() {       
+        Kortti kymppi1 = new Kortti(1, 10);
+        Kortti kymppi2 = new Kortti(2,10);
+        Kortti kax = new Kortti(1,2);
+        
+        Kasi pelaaja = new Kasi();
+        Kasi jakaja = new Kasi();
+        
+        pelaaja.jaa(kymppi1);
+        pelaaja.jaa(kymppi2);
+        pelaaja.jaa(kax);
+        
+        jakaja.jaa(kymppi1);
+        jakaja.jaa(kymppi2);
+        
+        bj.setJakajanKasi(jakaja);
+        bj.setPelaajanKasi(pelaaja);
+        
+        assertEquals("jakaja voittaa", bj.resolve(false));
+    }
+    
+    @Test
+    public void resolveSplitinJalkeenSplitVoittaa() {
+        jaaPari();
+        
+        bj.split();
+        
+        Kortti kymppi1 = new Kortti(1, 10);
+        Kortti kymppi2 = new Kortti(2,10);
+        Kortti kax = new Kortti(1,2);
+        
+        Kasi jakaja = new Kasi();
+        
+        jakaja.jaa(kax);
+        jakaja.jaa(kymppi1);
+        jakaja.jaa(kymppi2);
+        
+        bj.setJakajanKasi(jakaja);
+        
+        assertEquals("pelaaja voittaa", bj.resolve(true));
+    }
+    
+    @Test
+    public void ResolveSplitinJalkeenSplitHaviaa() {
+        Kortti kymppi1 = new Kortti(1, 10);
+        Kortti kymppi2 = new Kortti(2,10);
+        Kortti kax = new Kortti(1,2);
+        
+        Kasi jakaja = new Kasi();
+        Kasi split = new Kasi();
+        
+        split.jaa(kymppi1);
+        split.jaa(kymppi2);
+        split.jaa(kax);
+        
+        jakaja.jaa(kymppi1);
+        jakaja.jaa(kymppi2);
+        
+        bj.setJakajanKasi(jakaja);
+        bj.setSplitKasi(split);
+        
+        assertEquals("jakaja voittaa", bj.resolve(true));
+    }
     
     //splittiä
     
@@ -376,6 +447,60 @@ public class BlackjackTest {
         kasi.setPanos(1);
         bj.tuplaa();
         assertEquals(2, kasi.getPanos());
+    }
+ 
+    @Test
+    public void jaaJakajalleJakaa() {
+        Kortti kymppi = new Kortti(1, 10);
+        Kortti kuus = new Kortti(2,6);
+        
+        Kasi jakaja = new Kasi();
+        jakaja.jaa(kuus);
+        jakaja.jaa(kymppi);
+        
+        bj.setJakajanKasi(jakaja);
+        bj.jaaJakajalle();
+        assertEquals(3, jakaja.getCards().size());
+    }
+    
+    @Test
+    public void jaaJakajallePalauttaTrueJakaessaan() {        
+        Kortti kymppi = new Kortti(1, 10);
+        Kortti kuus = new Kortti(2,6);
+        
+        Kasi jakaja = new Kasi();
+        jakaja.jaa(kuus);
+        jakaja.jaa(kymppi);
+        
+        bj.setJakajanKasi(jakaja);
+        assertTrue(bj.jaaJakajalle());
+    }
+    
+    @Test
+    public void jaaJakajalleEiJaaYli17() {
+        Kortti kymppi = new Kortti(1, 10);
+        Kortti seiska = new Kortti(2,7);
+        
+        Kasi jakaja = new Kasi();
+        jakaja.jaa(seiska);
+        jakaja.jaa(kymppi);
+        
+        bj.setJakajanKasi(jakaja);
+        bj.jaaJakajalle();
+        assertEquals(2, jakaja.getCards().size());
+    }
+    
+    @Test
+    public void jaaJakajallePalauttaaFalse() {
+        Kortti kymppi = new Kortti(1, 10);
+        Kortti seiska = new Kortti(2,7);
+        
+        Kasi jakaja = new Kasi();
+        jakaja.jaa(seiska);
+        jakaja.jaa(kymppi);
+        
+        bj.setJakajanKasi(jakaja);
+        assertTrue(!bj.jaaJakajalle());
     }
     
 }

@@ -68,7 +68,7 @@ public class KomentoKuuntelija implements ActionListener {
             peli.tyhjaaKadet();
             peli.setPanos(0);
             pvlista.paivita();
-            viesti.uusiViesti("Aseta panos ja paina komentonappulaa");
+            viesti.uusiViesti("Aseta panos ja paina Enter");
         }
     }
     

@@ -57,19 +57,6 @@ public class EnterKuuntelija implements KeyListener {
                 peli.alkujako();
                 pvlista.paivita();
                 viesti.uusiViesti("pelaa käyttäen alla olevia komentopainikkeita");
-            } else if ((peli.ykkoskasiValmis() && !peli.splitattu()) || peli.splitKasiValmis()) {
-                if (peli.jaaJakajalle()) {
-                    pvlista.paivita();
-                } else if (!peli.valmisAlkujakoon()) {
-                    viesti.uusiViesti(peli.resolve(true));
-
-                    peli.setValmisAlkujakoon(true);
-                } else {
-                    peli.tyhjaaKadet();
-                    peli.setPanos(0);
-                    pvlista.paivita();
-                    viesti.uusiViesti("Aseta panos ja paina komentonappulaa");
-                }
             }
             
         }

@@ -7,7 +7,6 @@ import javax.swing.JLabel;
 
 /**
  * Kenttä, johon tulostetaan Blackjack-pelin käsien tilanne.
- * @author viku
  */
 public class KorttiKentta extends JLabel implements Paivitettava{
     

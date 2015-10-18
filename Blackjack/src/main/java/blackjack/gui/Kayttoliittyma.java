@@ -8,7 +8,6 @@ import blackjack.gui.komponentit.Paivityslista;
 import blackjack.gui.komponentit.KorttiKentta;
 import blackjack.gui.komponentit.Voittokentta;
 import blackjack.logiikka.Blackjack;
-import blackjack.logiikka.Saannot;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.Container;
@@ -31,10 +30,7 @@ public class Kayttoliittyma implements Runnable {
     private Viestikentta viestikentta;
     
     public Kayttoliittyma() {
-        Saannonluoja s = new Saannonluoja();
-        s.luoIkkuna();
-        Saannot saannot = s.getSaannot();
-        peli = new Blackjack(saannot);
+        peli = new Blackjack(6);
     }
     
     @Override
@@ -61,13 +57,13 @@ public class Kayttoliittyma implements Runnable {
         
     private JPanel luoNapit() {
         JPanel panel = new JPanel(new GridLayout(1,3));
-        JButton hit = new JButton("Hit");
+        JButton hit = new JButton("Ota kortti");
         panel.add(hit);
-        JButton stand = new JButton("Stand");
+        JButton stand = new JButton("Passaa");
         panel.add(stand);
-        JButton dd = new JButton("Double down");
+        JButton dd = new JButton("Tuplaa");
         panel.add(dd);
-        JButton splittaa = new JButton("Split");
+        JButton splittaa = new JButton("Splittaa");
         panel.add(splittaa);        
         KomentoKuuntelija kk = new KomentoKuuntelija(peli, hit, stand, dd,splittaa, paivityslista,viestikentta);
         hit.addActionListener(kk);

@@ -14,15 +14,14 @@ public class Blackjack {
     private double voitot;
     private boolean valmisAlkujakoon;
     private boolean splitattu;
-    private Saannot saannot;
+    private int pakkoja;
     
     /**
      * Luo Blackjack-pelin parametrina annetuilla säännöillä
-     * @param saannot pelissä käytettävät säännöt
+     * @param montakoPakkaa  pelissä käytettävien pakkojen määrä
      */
-    public Blackjack(Saannot saannot) {
-        this.saannot = saannot;
-        int pakkoja = this.saannot.getPakkoja();
+    public Blackjack(int montakoPakkaa) {
+        pakkoja = montakoPakkaa;
         alustaPakka(pakkoja);
         jakaja = new Kasi();
         pelaaja = new Kasi();
@@ -66,7 +65,6 @@ public class Blackjack {
      * Lisäksi tarkistaa, onko pelaajalla blackjack.
      */
     public void alkujako() {
-        int pakkoja = saannot.getPakkoja();
         if (deck.jaljellaAlle(0.33333)) {
             alustaPakka(pakkoja);
         }
@@ -190,7 +188,7 @@ public class Blackjack {
         
         if(kasiteltava.getValue() > 21) {
             if (jakaja.getValue() > 21) {
-                return tasapeli(panos);
+                return "tasapeli";
             } else {
                 return havia(panos);
             }
@@ -198,7 +196,7 @@ public class Blackjack {
         
         if (kasiteltava.blackjack()) {
             if (jakaja.blackjack()) {
-                return tasapeli(panos);
+                return "tasapeli";
             }
             voitot += 1.5 * kasiteltava.getPanos();
             return "pelaaja voittaa Blackjackilla";
@@ -211,7 +209,7 @@ public class Blackjack {
             return havia(panos);
         }
         if (jakaja.getValue() == kasiteltava.getValue() ) {
-            return tasapeli(panos);
+            return "tasapeli";
         }
         
         return voita(panos);
@@ -227,14 +225,6 @@ public class Blackjack {
         return "jakaja voittaa";
     }
     
-    private String tasapeli(int panos) {
-        boolean jakajaVoittaa = saannot.jakajaVoittaaTasapelit();
-        if (jakajaVoittaa) {
-            voitot -= panos;
-            return "tasapeli, jakaja voittaa";
-        }
-        return "tasapeli";
-    }
     
     //käsien setterit resolve():n testaamiseen
     public void setPelaajanKasi(Kasi kasi) {
@@ -275,12 +265,12 @@ public class Blackjack {
             } else {
                 viesti.append(jakaja.toString() + "\n");
             }       
-    //        System.out.println("summa " + peli.getJakajanKasi().getValue());
+
             viesti.append("Pelaaja:\n");
-//            viesti.append("Panos " + pelaaja.getPanos() + "\n");
+
             viesti.append("panos " + pelaaja.getPanos() + "\n");
             viesti.append(pelaaja);
-    //        System.out.println("summa " + peli.getPelaajanKasi().getValue());
+            viesti.append("   (" + pelaaja.getValue() + ")");
             if(splitattu) {
                 viesti.append("Panos " + split.getPanos() + "\n");
                 viesti.append(split);
